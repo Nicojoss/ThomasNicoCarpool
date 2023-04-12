@@ -1,6 +1,6 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Pour activer la connection string dans appsettings.json
+// Pour activer la connection string dans appsettings.jsons
 string connectionString = builder.Configuration.GetConnectionString("default");
 
 // Add services to the container.
