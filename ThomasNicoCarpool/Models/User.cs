@@ -90,6 +90,9 @@
             this.reviews = reviews;
             this.vehicles = vehicles;
         }
+        public User()
+        {
+        }
         // Constructeur mais sans l'id pour create account et initialiser les listes
         public User(string firstname, string lastname, string nickname, string telephone, string email, string password)
         {
@@ -105,6 +108,23 @@
             reviews = new List<Review>();
             vehicles = new List<Vehicle>();
         }
+
+        public User(int id, string firstname, string lastname, string nickname, string telephone, string email, string password)
+        {
+            this.id = id;
+            this.firstname = firstname;
+            this.lastname = lastname;
+            this.nickname = nickname;
+            this.telephone = telephone;
+            this.email = email;
+            this.password = password;
+            requests = new List<Request>();
+            carpools = new List<Carpool>();
+            registrations = new List<Registration>();
+            reviews = new List<Review>();
+            vehicles = new List<Vehicle>();
+        }
+
         // Return null a changer
         static User Authenticate(string nickName, string password)
         {

@@ -1,4 +1,7 @@
-﻿namespace ThomasNicoCarpool.Models
+﻿using ThomasNicoCarpool.DAL;
+using ThomasNicoCarpool.DAL.IDAL;
+
+namespace ThomasNicoCarpool.Models
 {
     public class Carpool: Journey
     {
@@ -51,6 +54,17 @@
 			set { vehicle = value; }
 		}
 
+        public Carpool(int id, string departure, string arrival, DateTime date, int nbrKm, bool smoke, bool pause, double price, User driver, Vehicle vehicle)
+			: base(id, departure, arrival, date)
+        {
+            this.nbrKm = nbrKm;
+            this.smoke = smoke;
+            this.pause = pause;
+            this.price = price;
+            this.driver = driver;
+            this.vehicle = vehicle;
+        }
+
         public Carpool(int id, string departure, string arrival, DateTime date,int nbrKm, bool smoke, bool pause, double price, List<Registration> registrations, User driver, List<Review> reviews, Vehicle vehicle)
 			: base(id, departure, arrival, date)
         {
@@ -76,11 +90,12 @@
 			this.registrations = new List<Registration>();
 			this.reviews = new List<Review>();
         }
-		static List<Carpool> GetOffers()
+		public static List<Carpool> GetOffers(ICarpoolDAL carpool)
 		{
-			return null;
+			List<Carpool> carpools = carpool.GetOffers();
+			return carpools;
 		}
-		static List<Carpool> GetOffersByDriver()
+		public static List<Carpool> GetOffersByDriver()
 		{
 			return null;
 		}

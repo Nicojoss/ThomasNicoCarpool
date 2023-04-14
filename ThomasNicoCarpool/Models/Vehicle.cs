@@ -44,6 +44,17 @@
 			get { return owner; }
 			set { owner = value; }
 		}
+		// Pour recuperer dans carpoolIDAL
+        public Vehicle(int id, string type, int nbrPlace, int storagePlace, double priceMultiplier, User owner)
+        {
+            this.id = id;
+            this.type = Enum.Parse<TypeVehicle>(type);
+            this.nbrPlace = nbrPlace;
+            this.storagePlace = storagePlace;
+            this.priceMultiplier = priceMultiplier;
+            this.owner = owner;
+			carpools = new List<Carpool>();
+        }
 
         public Vehicle(int id, TypeVehicle type, int nbrPlace, int storagePlace, double priceMultiplier, List<Carpool> carpools, User owner)
         {

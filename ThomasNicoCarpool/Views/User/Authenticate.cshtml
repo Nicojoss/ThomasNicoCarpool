@@ -1,0 +1,19 @@
+﻿@model User
+@{
+    <h1 style="text-align:center">Authentication page</h1>
+<br />
+
+<div>
+    <form asp-controller="User" asp-action="Authenticate" method="post">
+        <label asp-for="Nickname">Nickname :</label>
+        <input asp-for="Nickname" />
+        <span asp-validation-for="Nickname" style="color:red"></span>
+        <br />
+        <label asp-for="Password">Password :</label>
+        <input asp-for="Password" />
+        <span asp-validation-for="Password" style="color:red"></span>
+        <br />
+        <input type="submit" value="Confirm" />
+    </form>
+</div>
+}

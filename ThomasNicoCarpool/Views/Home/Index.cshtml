@@ -1,8 +1,13 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Welcome to carpool website!";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>Welcome to our carpool website! made by Thomas and Nico</p>
+</div>
+<div class="text-center">
+    <a class="btn" style="border: 2px solid grey" asp-controller="User" asp-action="CreateAccount">Create Account </a>
+    <br />
+    <a class="btn" style="border: 2px solid grey" asp-controller="User" asp-action="Authenticate">Authenticate </a>
 </div>
