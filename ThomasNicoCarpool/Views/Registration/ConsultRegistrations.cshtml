@@ -1,0 +1,25 @@
+﻿@model List<Registration>
+<a class="btn" style="border: 2px solid grey" asp-controller="Carpool" asp-action="SeeAllOffers">Return</a>
+<br/>
+<br/>
+<table class="table">
+    <tr>
+        <th>Date</th>
+        <th>Departure</th>
+        <th>Arrival</th>
+        <th>Driver's number'</th>
+        <th>Price</th>
+
+    </tr>
+    @foreach (Registration r in Model)
+    {
+            <tr>
+                <td>@r.Carpool_.Date</td>
+                <td>@r.Carpool_.Departure</td>
+                <td>@r.Carpool_.Arrival</td>
+                <td>@r.Carpool_.Driver.Telephone</td>
+                <td>Calculated price</td>
+                    <td><a asp-controller="Review" asp-action="GiveAReview">Give a review</a></td>
+            </tr>
+    }
+</table>

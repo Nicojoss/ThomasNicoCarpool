@@ -1,4 +1,6 @@
-﻿namespace ThomasNicoCarpool.Models
+﻿using ThomasNicoCarpool.DAL.IDAL;
+
+namespace ThomasNicoCarpool.Models
 {
     public class Registration
     {
@@ -49,9 +51,9 @@
             this.passenger = passenger;
             this.carpool = carpool;
         }
-		static List<Registration> GetRegistrationByUser(User user)
+		public static List<Registration> GetRegistrationByUser(User user, IRegistrationDAL registrationDAL)
 		{
-			return null;
+			return registrationDAL.GetRegistrationByUser(user);
 		}
 		public void SaveRegistration()
 		{
