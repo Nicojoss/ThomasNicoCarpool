@@ -21,19 +21,19 @@ namespace ThomasNicoCarpool.Models
             get { return id; }
             set { id = value; }
         }
-        [Required(ErrorMessage = "Firstname Invalid. (3 charcateres min and 20 max)"), StringLength(20, MinimumLength = 3)]
+        [Required(ErrorMessage = "Firstname Invalid."), StringLength(20, MinimumLength = 3, ErrorMessage = " Enter between 3 and 20 characters")]
         public string Firstname
         {
             get { return firstname; }
             set { firstname = value; }
         }
-        [Required(ErrorMessage = "Lastname Invalid. (3 charcateres min and 30 max)."), StringLength(30, MinimumLength = 3)]
+        [Required(ErrorMessage = "Lastname Invalid."), StringLength(30, MinimumLength = 3, ErrorMessage = " Enter between 3 and 30 characters")]
         public string Lastname
         {
             get { return lastname; }
             set { lastname = value; }
         }
-        [Required(ErrorMessage = "Nickname Invalid. (3 charcateres min and 15 max)."), StringLength(15, MinimumLength = 3)]
+        [Required(ErrorMessage = "Nickname Invalid."), StringLength(15, MinimumLength = 3, ErrorMessage = " Enter between 3 and 15 characters")]
         public string Nickname
         {
             get { return nickname; }
