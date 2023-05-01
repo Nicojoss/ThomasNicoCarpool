@@ -1,4 +1,6 @@
-﻿namespace ThomasNicoCarpool.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ThomasNicoCarpool.Models
 {
     public class Registration
     {
@@ -12,12 +14,14 @@
 			get { return id; }
 			set { id = value; }
 		}
+		[Required(ErrorMessage = "Field Invalid!"), Range(0, 10)]
 		public int NbrPlaceTaken
 		{
 			get { return nbrPlaceTaken; }
 			set { nbrPlaceTaken = value; }
 		}
-		public int NbrLuggage
+        [Required(ErrorMessage = "Field Invalid!"), Range(0, 10)]
+        public int NbrLuggage
 		{
 			get { return nbrLuggage; }
 			set { nbrLuggage = value; }

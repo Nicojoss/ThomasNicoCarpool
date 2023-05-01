@@ -1,4 +1,6 @@
-﻿namespace ThomasNicoCarpool.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ThomasNicoCarpool.Models
 {
     public class User
     {
@@ -19,31 +21,37 @@
             get { return id; }
             set { id = value; }
         }
+        [Required(ErrorMessage = "Firstname Invalid. (3 charcateres min and 20 max)"), StringLength(20, MinimumLength = 3)]
         public string Firstname
         {
             get { return firstname; }
             set { firstname = value; }
         }
+        [Required(ErrorMessage = "Lastname Invalid. (3 charcateres min and 30 max)."), StringLength(30, MinimumLength = 3)]
         public string Lastname
         {
             get { return lastname; }
             set { lastname = value; }
         }
+        [Required(ErrorMessage = "Nickname Invalid. (3 charcateres min and 15 max)."), StringLength(15, MinimumLength = 3)]
         public string Nickname
         {
             get { return nickname; }
             set { nickname = value; }
         }
+        [Required(ErrorMessage = "Telephone Invalid !"), DataType(DataType.PhoneNumber, ErrorMessage = "Phone Number not valid !")]
         public string Telephone
         {
             get { return telephone; }
             set { telephone = value; }
         }
+        [DataType(DataType.EmailAddress), Required(ErrorMessage = "Email Invalid!")]
         public string Email
         {
             get { return email; }
             set { email = value; }
         }
+        [Required(ErrorMessage = "Password Invalid!"), DataType(DataType.Password, ErrorMessage = "Password not valid !")]
         public string Password
         {
             get { return password; }
@@ -69,6 +77,7 @@
             get { return reviews; }
             set { reviews = value; }
         }
+        [Required(ErrorMessage = "Vehicles Invalid!")]
         public List<Vehicle> Vehicles
         {
             get { return vehicles; }

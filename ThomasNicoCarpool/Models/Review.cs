@@ -1,4 +1,6 @@
-﻿namespace ThomasNicoCarpool.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ThomasNicoCarpool.Models
 {
     public class Review
     {
@@ -12,12 +14,15 @@
 			get { return id; }
 			set { id = value; }
 		}
-		public int Rating
+
+        [Range(0, 5, ErrorMessage = "Enter a rating between 0 and 5 !.")]
+        public int Rating
 		{
 			get { return rating; }
 			set { rating = value; }
 		}
-		public string Comment
+        [Required(ErrorMessage = "Enter a comment."), StringLength(100, MinimumLength = 1, ErrorMessage = "Enter a comment between 1 and 100 characteres")]
+        public string Comment
 		{
 			get { return comment; }
 			set { comment = value; }

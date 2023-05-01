@@ -1,4 +1,5 @@
-﻿using ThomasNicoCarpool.DAL;
+﻿using System.ComponentModel.DataAnnotations;
+using ThomasNicoCarpool.DAL;
 using ThomasNicoCarpool.DAL.IDAL;
 
 namespace ThomasNicoCarpool.Models
@@ -13,6 +14,7 @@ namespace ThomasNicoCarpool.Models
         private User driver;
         private List<Review> reviews;
         private Vehicle vehicle;
+        [Required(ErrorMessage = "Number of Km Invalid!"), Range(0, 5000, ErrorMessage = "Enter a positive number between 0 and 5000 km.")]
         public int NbrKm
 		{
 			get { return nbrKm; }
