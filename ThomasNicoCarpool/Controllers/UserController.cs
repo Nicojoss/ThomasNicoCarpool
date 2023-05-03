@@ -34,7 +34,7 @@ namespace ThomasNicoCarpool.Controllers
             }
             // Rajouter l'objet en Session à voir Mardi
             HttpContext.Session.SetString("User", JsonConvert.SerializeObject(u)); 
-            string User_session = HttpContext.Session.GetString("User");
+            //string User_session = HttpContext.Session.GetString("User");
 
             return Redirect("/Carpool/SeeAllOffers");
         }

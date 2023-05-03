@@ -1,0 +1,27 @@
+﻿@model Request
+@{
+    <h1 style="text-align:center">Make a Request page</h1>
+    <br />
+    <a class="btn" style="border: 2px solid grey" asp-controller="Carpool" asp-action="SeeAllOffers">Return</a>
+    <br />
+    <div>
+        <form asp-controller="Request" asp-action="MakeARequest" method="post">
+            <label asp-for="Departure">Departure :</label>
+            <input asp-for="Departure" />
+            <span asp-validation-for="Departure" style="color:red"></span>
+            <br />
+
+            <label asp-for="Arrival">Arrival :</label>
+            <input asp-for="Arrival" />
+            <span asp-validation-for="Arrival" style="color:red"></span>
+            <br />
+
+            <label asp-for="Date">Date :</label>
+            <input type="datetime-local" asp-for="Date" />
+            <span asp-validation-for="Date" style="color:red"></span>
+            <br />
+
+            <input type="submit" value="Confirm" />
+        </form>
+    </div>
+}

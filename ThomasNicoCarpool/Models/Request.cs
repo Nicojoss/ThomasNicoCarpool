@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using ThomasNicoCarpool.DAL.IDAL;
 
 namespace ThomasNicoCarpool.Models
 {
@@ -16,14 +17,18 @@ namespace ThomasNicoCarpool.Models
         { 
             this.passenger = user;
         }
+        public Request(User user, string departure, string arrival, DateTime date) : base(departure, arrival, date)
+        {
+            this.passenger = user;
+        }
         // Ne pas oublier changer le return avec une liste
         static List<Request> GetRequests() 
         {
             return null;
         }
-        public void SaveRequest()
+        public void SaveRequest(IRequestDAL requestDAL)
         {
-
+            requestDAL.AddRequest(this);
         }
     }
 }
