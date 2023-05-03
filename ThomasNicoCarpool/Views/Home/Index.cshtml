@@ -1,7 +1,10 @@
 ﻿@{
     ViewData["Title"] = "Welcome to carpool website!";
 }
-
+@if (!string.IsNullOrEmpty((string)TempData["Message"])) // If the user create his account correctly this message will be displayed
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Welcome to our carpool website! made by Thomas and Nico</p>

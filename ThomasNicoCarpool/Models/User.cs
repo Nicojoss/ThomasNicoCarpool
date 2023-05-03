@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using ThomasNicoCarpool.DAL.IDAL;
+using ThomasNicoCarpool.ViewModels;
 
 namespace ThomasNicoCarpool.Models
 {
@@ -22,19 +23,19 @@ namespace ThomasNicoCarpool.Models
             get { return id; }
             set { id = value; }
         }
-        [Required(ErrorMessage = "Firstname Invalid. (3 charcateres min and 20 max)"), StringLength(20, MinimumLength = 3)]
+        [Required(ErrorMessage = "Firstname Invalid."), StringLength(20, MinimumLength = 3, ErrorMessage = " Enter between 3 and 20 characters")]
         public string Firstname
         {
             get { return firstname; }
             set { firstname = value; }
         }
-        [Required(ErrorMessage = "Lastname Invalid. (3 charcateres min and 30 max)."), StringLength(30, MinimumLength = 3)]
+        [Required(ErrorMessage = "Lastname Invalid."), StringLength(30, MinimumLength = 3, ErrorMessage = " Enter between 3 and 30 characters")]
         public string Lastname
         {
             get { return lastname; }
             set { lastname = value; }
         }
-        [Required(ErrorMessage = "Nickname Invalid. (3 charcateres min and 15 max)."), StringLength(15, MinimumLength = 3)]
+        [Required(ErrorMessage = "Nickname Invalid."), StringLength(15, MinimumLength = 3, ErrorMessage = " Enter between 3 and 15 characters")]
         public string Nickname
         {
             get { return nickname; }
@@ -52,7 +53,7 @@ namespace ThomasNicoCarpool.Models
             get { return email; }
             set { email = value; }
         }
-        [Required(ErrorMessage = "Password Invalid!"), DataType(DataType.Password, ErrorMessage = "Password not valid !")]
+        [Required(ErrorMessage = "Password Invalid!"), DataType(DataType.Password)]
         public string Password
         {
             get { return password; }
@@ -134,15 +135,23 @@ namespace ThomasNicoCarpool.Models
             reviews = new List<Review>();
             vehicles = new List<Vehicle>();
         }
-
-        // Return null a changer
+        // Ctor pour mon UserViewModel
+        public User(UserViewModel userVm)
+        {
+            firstname = userVm.Firstname;
+            lastname = userVm.Lastname;
+            nickname = userVm.Nickname;
+            telephone = userVm.Telephone;
+            email = userVm.Email;
+            password = userVm.Password;
+        }
         public static User Authenticate(string nickName, string password, IUserDAL userDAL)
         {
             return userDAL.Authenticate(nickName, password);
         }
-        public void SaveAccount()
+        public void SaveAccount(IUserDAL userDAL)
         {
-            
+            userDAL.SaveAccount(this);
         }
         public List<Vehicle> GetVehicles()
         {
