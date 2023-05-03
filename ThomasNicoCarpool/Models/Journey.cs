@@ -1,4 +1,6 @@
-﻿namespace ThomasNicoCarpool.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ThomasNicoCarpool.Models
 {
     public abstract class Journey
     {
@@ -11,17 +13,20 @@
 			get { return id; }
 			set { id = value; }
 		}
-		public string Departure
+        [Required(ErrorMessage = "Empty Field!.")]
+        public string Departure
 		{
 			get { return departure; }
 			set { departure = value; }
 		}
-		public string Arrival
+        [Required(ErrorMessage = "Empty Field!.")]
+        public string Arrival
 		{
 			get { return arrival; }
 			set { arrival = value; }
 		}
-		public DateTime Date
+        [Required(ErrorMessage = "Empty Field!."), DataType(DataType.DateTime)]
+        public DateTime Date
 		{
 			get { return date; }
 			set { date = value; }

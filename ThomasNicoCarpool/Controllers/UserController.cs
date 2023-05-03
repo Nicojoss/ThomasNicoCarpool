@@ -27,8 +27,8 @@ namespace ThomasNicoCarpool.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Authenticate(string nickname, string password)
         {
-            User u = _user.Authenticate(nickname, password);
-            if(u is null)
+            User u = Models.User.Authenticate(nickname, password, _user);
+            if (u is null)
             {
                 return RedirectToAction("Authenticate", "User");
             }
