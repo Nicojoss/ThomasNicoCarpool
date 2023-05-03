@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ThomasNicoCarpool.DAL.IDAL;
+using ThomasNicoCarpool.ViewModels;
 
 namespace ThomasNicoCarpool.Models
 {
@@ -51,7 +53,7 @@ namespace ThomasNicoCarpool.Models
             get { return email; }
             set { email = value; }
         }
-        [Required(ErrorMessage = "Password Invalid!"), DataType(DataType.Password, ErrorMessage = "Password not valid !")]
+        [Required(ErrorMessage = "Password Invalid!"), DataType(DataType.Password)]
         public string Password
         {
             get { return password; }
@@ -133,15 +135,23 @@ namespace ThomasNicoCarpool.Models
             reviews = new List<Review>();
             vehicles = new List<Vehicle>();
         }
-
-        // Return null a changer
+        // Ctor pour mon UserViewModel
+        public User(UserViewModel userVm)
+        {
+            firstname = userVm.Firstname;
+            lastname = userVm.Lastname;
+            nickname = userVm.Nickname;
+            telephone = userVm.Telephone;
+            email = userVm.Email;
+            password = userVm.Password;
+        }
         static User Authenticate(string nickName, string password)
         {
             return null;
         }
-        public void SaveAccount()
+        public void SaveAccount(IUserDAL userDAL)
         {
-            
+            userDAL.SaveAccount(this);
         }
         public List<Vehicle> GetVehicles()
         {

@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using ThomasNicoCarpool.DAL.IDAL;
 using ThomasNicoCarpool.Models;
@@ -38,9 +39,25 @@ namespace ThomasNicoCarpool.DAL
             return u;
         }
 
-        public bool SaveAccount(User user)
+        public bool SaveAccount(User u)
         {
-            throw new NotImplementedException();
+            bool success = false;
+            string query = "INSERT INTO [User](LastName, Firstname, Nickname, Password, Email, Telephone)" +
+                " VALUES (@LastName, @Firstname, @Nickname, @Password, @Email, @Telephone)";
+
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("Lastname", u.Lastname);
+                cmd.Parameters.AddWithValue("Firstname", u.Firstname);
+                cmd.Parameters.AddWithValue("Nickname", u.Nickname);
+                cmd.Parameters.AddWithValue("Password", u.Password);
+                cmd.Parameters.AddWithValue("Email", u.Email);
+                cmd.Parameters.AddWithValue("Telephone", u.Telephone);
+                connection.Open();
+                success = cmd.ExecuteNonQuery() > 0;
+                return success;
+            }
         }
     }
 }

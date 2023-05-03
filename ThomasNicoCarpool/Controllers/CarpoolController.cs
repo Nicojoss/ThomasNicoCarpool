@@ -15,7 +15,7 @@ namespace ThomasNicoCarpool.Controllers
         }
         public IActionResult SeeAllOffers()
         {
-            string userSession = HttpContext.Session.GetString("User");
+            string? userSession = HttpContext.Session.GetString("User");
             User u = JsonConvert.DeserializeObject<User>(userSession);
             ViewData["user"] = u.Nickname;
 
