@@ -1,4 +1,6 @@
-﻿namespace ThomasNicoCarpool.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ThomasNicoCarpool.Models
 {
     public class Vehicle
     {
@@ -14,17 +16,20 @@
 			get { return id; }
 			set { id = value; }
 		}
+		[Required(ErrorMessage = "Invalid Type!")]
 		public TypeVehicle Type
 		{
 			get { return type; }
 			set { type = value; }
 		}
+		[Required(ErrorMessage = "Invalid number of places"), Range(1, 9, ErrorMessage = "Enter number of places between 1 and 9")]
 		public int NbrPlace
 		{
 			get { return nbrPlace; }
 			set { nbrPlace = value; }
 		}
-		public int StoragePlace
+        [Required(ErrorMessage = "Invalid number of storage"), Range(0, 10, ErrorMessage = "Enter number of places between 0 and 10")]
+        public int StoragePlace
 		{
 			get { return storagePlace; }
 			set { storagePlace = value; }

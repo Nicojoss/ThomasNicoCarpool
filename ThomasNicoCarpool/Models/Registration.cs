@@ -1,4 +1,8 @@
-﻿namespace ThomasNicoCarpool.Models
+﻿using ThomasNicoCarpool.DAL.IDAL;
+
+using System.ComponentModel.DataAnnotations;
+
+namespace ThomasNicoCarpool.Models
 {
     public class Registration
     {
@@ -12,12 +16,14 @@
 			get { return id; }
 			set { id = value; }
 		}
+		[Required(ErrorMessage = "Field Invalid!"), Range(0, 10)]
 		public int NbrPlaceTaken
 		{
 			get { return nbrPlaceTaken; }
 			set { nbrPlaceTaken = value; }
 		}
-		public int NbrLuggage
+        [Required(ErrorMessage = "Field Invalid!"), Range(0, 10)]
+        public int NbrLuggage
 		{
 			get { return nbrLuggage; }
 			set { nbrLuggage = value; }
@@ -49,9 +55,9 @@
             this.passenger = passenger;
             this.carpool = carpool;
         }
-		static List<Registration> GetRegistrationByUser(User user)
+		public static List<Registration> GetRegistrationByUser(User user, IRegistrationDAL registrationDAL)
 		{
-			return null;
+			return registrationDAL.GetRegistrationByUser(user);
 		}
 		public void SaveRegistration()
 		{

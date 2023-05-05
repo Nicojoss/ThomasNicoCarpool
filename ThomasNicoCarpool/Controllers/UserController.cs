@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ThomasNicoCarpool.DAL.IDAL;
 using ThomasNicoCarpool.Models;
+using ThomasNicoCarpool.ViewModels;
 
 namespace ThomasNicoCarpool.Controllers
 {
@@ -18,17 +19,30 @@ namespace ThomasNicoCarpool.Controllers
         {
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateAccount(UserViewModel u)
+        {
+            if(ModelState.IsValid)
+            {
+                User user = new User(u);
+
+                user.SaveAccount(_user);
+                TempData["Message"] = "Account created successfully!";
+                return RedirectToAction("Index", "Home");
+            }
+            return View(u);
+        }
         public IActionResult Authenticate() 
         {
-
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Authenticate(string nickname, string password)
         {
-            User u = _user.Authenticate(nickname, password);
-            if(u is null)
+            User u = Models.User.Authenticate(nickname, password, _user);
+            if (u is null)
             {
                 return RedirectToAction("Authenticate", "User");
             }
