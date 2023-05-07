@@ -62,7 +62,7 @@ namespace ThomasNicoCarpool.Models
             this.owner = owner;
 			carpools = new List<Carpool>();
         }
-
+        public Vehicle() { }
         public Vehicle(int id, TypeVehicle type, int nbrPlace, int storagePlace, double priceMultiplier, List<Carpool> carpools, User owner)
         {
             this.id = id;

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ThomasNicoCarpool.DAL.IDAL;
 
 namespace ThomasNicoCarpool.Models
 {
@@ -58,9 +59,9 @@ namespace ThomasNicoCarpool.Models
 		{
 			return null;
 		}
-		static void SaveReview()
+		public bool SaveReview(IReviewDAL reviewDAL)
 		{
-
+			return reviewDAL.SaveReview(this);
 		}
     }
 }

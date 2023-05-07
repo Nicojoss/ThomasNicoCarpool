@@ -19,7 +19,7 @@
                 <td>@r.Carpool_.Arrival</td>
                 <td>@r.Carpool_.Driver.Telephone</td>
                 <td>Calculated price</td>
-                    <td><a asp-controller="Review" asp-action="GiveAReview">Give a review</a></td>
+                    <td><a asp-controller="Review" asp-action="GiveAReview" asp-route-id="@r.Id">Give a review</a></td>
             </tr>
     }
 </table>

@@ -38,7 +38,7 @@ namespace ThomasNicoCarpool.Models
 			get { return carpool; }
 			set { carpool = value; }
 		}
-
+		public Registration() { }
         public Registration(int id, int nbrPlaceTaken, int nbrLuggage, User passenger, Carpool carpool)
         {
             this.id = id;

@@ -57,7 +57,7 @@ namespace ThomasNicoCarpool.Models
 			get { return vehicle; }
 			set { vehicle = value; }
 		}
-
+		public Carpool() { }
         public Carpool(int id, string departure, string arrival, DateTime date, int nbrKm, bool smoke, bool pause, double price, User driver, Vehicle vehicle)
 			: base(id, departure, arrival, date)
         {

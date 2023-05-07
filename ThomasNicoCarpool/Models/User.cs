@@ -150,8 +150,20 @@ namespace ThomasNicoCarpool.Models
             return null;
         }
         public void AddCarpool(Carpool carpool) => this.carpools.Add(carpool);
-        public void AddRegistration(Registration registration) => this.registrations.Add(registration);
+        public void AddRegistration(Registration registration) { 
+            if(!registrations.Contains(registration))
+                this.registrations.Add(registration); 
+        }
         public void AddReview(Review review) => this.reviews.Add(review);
         public void AddVehicle(Vehicle vehicle) => this.vehicles.Add(vehicle);
+
+        public Registration GetRegistrationsById(int id) {
+            foreach (var reg in registrations)
+            {
+                if(reg.Id==id)
+                    return reg;
+            }
+            return null;
+        }
     }
 }
