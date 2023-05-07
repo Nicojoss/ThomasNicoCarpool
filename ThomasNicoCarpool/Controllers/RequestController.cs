@@ -21,14 +21,20 @@ namespace ThomasNicoCarpool.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult MakeARequest(string departure, string arrival, DateTime date)
         {
-            string userSession = HttpContext.Session.GetString("User");
-            User u = JsonConvert.DeserializeObject<User>(userSession);
+            if (ModelState.IsValid) {
+                string userSession = HttpContext.Session.GetString("User");
+                User u = JsonConvert.DeserializeObject<User>(userSession);
+                Request r = new Request(u, departure, arrival, date);
 
-            Request r = new Request(u, departure, arrival, date);
-            r.SaveRequest(_request);
-            u.AddRequest(r);
-            HttpContext.Session.SetString("User", JsonConvert.SerializeObject(u));
-            return Redirect("/Carpool/SeeAllOffers");
+                //if (r.SaveRequest(_request))
+                //    TempData["Message"] = "Request created successfully!";
+                //else
+                //    TempData["Message"] = "Error during the creation of the request !";
+
+                r.SaveRequest(_request);
+                return Redirect("/Carpool/SeeAllOffers");
+            }
+            return View();
         }
     }
 }

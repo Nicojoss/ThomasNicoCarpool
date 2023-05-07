@@ -25,7 +25,7 @@ namespace ThomasNicoCarpool.Models
 			get { return arrival; }
 			set { arrival = value; }
 		}
-        [Required(ErrorMessage = "Empty Field!."), DataType(DataType.DateTime)]
+        [Required(ErrorMessage = "Empty Field!."), DataType(DataType.DateTime), ]
         public DateTime Date
 		{
 			get { return date; }

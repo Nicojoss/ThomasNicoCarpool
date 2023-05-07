@@ -13,7 +13,6 @@ namespace ThomasNicoCarpool.Models
         private string telephone;
         private string email;
         private string password;
-        private List<Request> requests;
         private List<Registration> registrations;
         private List<Carpool> carpools;
         private List<Review> reviews;
@@ -59,11 +58,6 @@ namespace ThomasNicoCarpool.Models
             get { return password; }
             set { password = value; }
         }
-        public List<Request> Requests
-        {
-            get { return requests; }
-            set { requests = value; }
-        }
         public List<Registration> Registrations
         {
             get { return registrations; }
@@ -86,7 +80,7 @@ namespace ThomasNicoCarpool.Models
             set { vehicles = value; }
         }
         // Constructeur tout
-        public User(int id, string firstname, string lastname, string nickname, string telephone, string email, string password, List<Request> requests, List<Registration> registrations, List<Carpool> carpools, List<Review> reviews, List<Vehicle> vehicles)
+        public User(int id, string firstname, string lastname, string nickname, string telephone, string email, string password, List<Registration> registrations, List<Carpool> carpools, List<Review> reviews, List<Vehicle> vehicles)
         {
             this.id = id;
             this.firstname = firstname;
@@ -95,7 +89,6 @@ namespace ThomasNicoCarpool.Models
             this.telephone = telephone;
             this.email = email;
             this.password = password;
-            this.requests = requests;
             this.registrations = registrations;
             this.carpools = carpools;
             this.reviews = reviews;
@@ -113,7 +106,6 @@ namespace ThomasNicoCarpool.Models
             this.telephone = telephone;
             this.email = email;
             this.password = password;
-            requests = new List<Request>();
             carpools = new List<Carpool>();
             registrations = new List<Registration>();
             reviews = new List<Review>();
@@ -129,7 +121,6 @@ namespace ThomasNicoCarpool.Models
             this.telephone = telephone;
             this.email = email;
             this.password = password;
-            requests = new List<Request>();
             carpools = new List<Carpool>();
             registrations = new List<Registration>();
             reviews = new List<Review>();
@@ -164,7 +155,6 @@ namespace ThomasNicoCarpool.Models
         public void AddCarpool(Carpool carpool) => this.carpools.Add(carpool);
         public void AddRegistration(Registration registration) => this.registrations.Add(registration);
         public void AddReview(Review review) => this.reviews.Add(review);
-        public void AddRequest(Request request) => this.requests.Add(request);
         public void AddVehicle(Vehicle vehicle) => this.vehicles.Add(vehicle);
     }
 }

@@ -13,8 +13,9 @@ namespace ThomasNicoCarpool.DAL
             this.connectionString = connectionString;
         }
 
-        public void AddRequest(Request request)
+        public bool SaveRequest(Request request)
         {
+            bool success = false;
             string query = "INSERT INTO [Request] (Departure, Arrival, Date, IdUser) VALUES(@Departure,@Arrival,@Date,@IdUser)";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -24,8 +25,9 @@ namespace ThomasNicoCarpool.DAL
                 cmd.Parameters.AddWithValue("Arrival", request.Arrival);
                 cmd.Parameters.AddWithValue("Date", request.Date);
                 cmd.Parameters.AddWithValue("IdUser", request.Passenger.Id);
-
                 connection.Open();
+                success = cmd.ExecuteNonQuery() > 0;
+                return success;
             }
         }
            

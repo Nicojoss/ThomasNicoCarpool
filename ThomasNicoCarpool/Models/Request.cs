@@ -26,9 +26,9 @@ namespace ThomasNicoCarpool.Models
         {
             return null;
         }
-        public void SaveRequest(IRequestDAL requestDAL)
+        public bool SaveRequest(IRequestDAL requestDAL)
         {
-            requestDAL.AddRequest(this);
+            return requestDAL.SaveRequest(this);
         }
     }
 }
