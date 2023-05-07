@@ -55,9 +55,15 @@ namespace ThomasNicoCarpool.Models
             this.passenger = user;
             this.carpool = carpool;
         }
-		static List<Review> GetReviewByDriver(User user)
+        public Review(int id, int rating, string comment)
+        {
+            this.id = id;
+            this.rating = rating;
+            this.comment = comment;
+        }
+        public static List<Review> GetReviewByDriver(IReviewDAL reviewDAL ,User user)
 		{
-			return null;
+			return reviewDAL.GetReviewsByDriver(user);
 		}
 		public bool SaveReview(IReviewDAL reviewDAL)
 		{

@@ -43,5 +43,12 @@ namespace ThomasNicoCarpool.Controllers
             }
             return View();
         }
+
+        public IActionResult ConsultReview(string JsonCarpool)
+        {
+            Carpool carpool = JsonConvert.DeserializeObject<Carpool>(JsonCarpool);
+            List<Review> reviews = Review.GetReviewByDriver(_review, carpool.Driver);
+            return View(reviews);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Data.SqlClient;
+﻿using System.Data;
+using System.Data.SqlClient;
 using ThomasNicoCarpool.DAL.IDAL;
 using ThomasNicoCarpool.Models;
 
@@ -11,6 +12,30 @@ namespace ThomasNicoCarpool.DAL
         public ReviewDAL(string connectionString)
         {
             this.connectionString = connectionString;
+        }
+
+        public List<Review> GetReviewsByDriver(User user)
+        {
+            List<Review> reviews = new List<Review>();
+            string query = "SELECT * FROM [Review] " +
+                "Join [Carpool] ON [Review].IdCarpool = [Carpool].Id " +
+                "Join [User] ON [Carpool].IdDriver = [User].Id " +
+                "Where [User].Id = @idUser";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("idUser", user.Id);
+                connection.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Review review = new Review(reader.GetInt32("Id"), reader.GetInt32("Rating"), reader.GetString("Comment"));
+                        reviews.Add(review);
+                    }
+                }
+            }
+            return reviews;
         }
 
         public bool SaveReview(Review review)
