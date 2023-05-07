@@ -16,7 +16,7 @@ namespace ThomasNicoCarpool.Models
 			set { id = value; }
 		}
 
-        [Range(0, 5, ErrorMessage = "Enter a rating between 0 and 5 !.")]
+        [Required(ErrorMessage = "Rating invalid!"), Range(1, 5, ErrorMessage = "Enter a rating between 1 and 5 !")]
         public int Rating
 		{
 			get { return rating; }
