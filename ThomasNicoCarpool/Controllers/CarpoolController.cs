@@ -21,5 +21,21 @@ namespace ThomasNicoCarpool.Controllers
 
             return View(Carpool.GetOffers(_carpool));
         }
+        public IActionResult OfferACarpool()
+        {
+            return View();
+        }
+        /* Ici je dois recuperer les attributs de la requete que le driver a choisi et y ajouter le vehicule que je vais utiliser
+         * pour mon offre de carpool
+         * public IActionResult OfferACarpool(Request request)
+        {
+            string? userSession = HttpContext.Session.GetString("User");
+            User u = JsonConvert.DeserializeObject<User>(userSession);
+            u.GetVehicles();
+            
+            Carpool c = new Carpool();
+
+            return View(c);
+        }*/
     }
 }

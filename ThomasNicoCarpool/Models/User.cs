@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ThomasNicoCarpool.DAL;
 using ThomasNicoCarpool.DAL.IDAL;
 using ThomasNicoCarpool.ViewModels;
 
@@ -152,10 +153,6 @@ namespace ThomasNicoCarpool.Models
         public void SaveAccount(IUserDAL userDAL)
         {
             userDAL.SaveAccount(this);
-        }
-        public List<Vehicle> GetVehicles()
-        {
-            return null;
         }
         public List<Carpool> GetOffers()
         {

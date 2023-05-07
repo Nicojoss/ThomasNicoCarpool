@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ThomasNicoCarpool.DAL;
+using ThomasNicoCarpool.DAL.IDAL;
 
 namespace ThomasNicoCarpool.Models
 {
@@ -81,11 +83,13 @@ namespace ThomasNicoCarpool.Models
             this.owner = owner;
 			this.carpools = new List<Carpool>();
         }
-
-        public void SaveVehicle()
+        public List<Vehicle> GetVehiclesByUser(IVehicleDAL vehicleDAL)
+        {
+            return vehicleDAL.GetVehiclesByUser(owner);
+        }
+        public void SaveVehicle(IVehicleDAL vehicleDAL)
 		{
-
+            vehicleDAL.SaveVehicle(this);
 		}
-
-	}
+    }
 }
