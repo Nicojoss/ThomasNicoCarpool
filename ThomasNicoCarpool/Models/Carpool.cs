@@ -14,6 +14,8 @@ namespace ThomasNicoCarpool.Models
         private User driver;
         private List<Review> reviews;
         private Vehicle vehicle;
+        private Request request;
+
         [Required(ErrorMessage = "Number of Km Invalid!"), Range(0, 5000, ErrorMessage = "Enter a positive number between 0 and 5000 km.")]
         public int NbrKm
 		{
@@ -92,7 +94,17 @@ namespace ThomasNicoCarpool.Models
 			this.registrations = new List<Registration>();
 			this.reviews = new List<Review>();
         }
-		public static List<Carpool> GetOffers(ICarpoolDAL carpool)
+		// Create the carpool with the request attribut in CarpoolController action OfferACarpool(Request) 
+        public Carpool(string departure, string arrival, DateTime date, User driver, Vehicle vehicle) : base(departure, arrival, date)
+        {
+			this.Departure = departure;
+			this.Arrival = arrival;
+			this.Date = date;
+			this.driver = driver;
+			this.vehicle = vehicle;
+        }
+
+        public static List<Carpool> GetOffers(ICarpoolDAL carpool)
 		{
 			List<Carpool> carpools = carpool.GetOffers();
 			return carpools;

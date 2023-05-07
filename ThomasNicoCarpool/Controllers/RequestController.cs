@@ -7,11 +7,11 @@ namespace ThomasNicoCarpool.Controllers
 {
     public class RequestController : Controller
     {
-        private readonly IRequestDAL _request;
+        private readonly IRequestDAL _requestDAL;
 
-        public RequestController(IRequestDAL _request)
+        public RequestController(IRequestDAL _requestDAL)
         {
-            this._request = _request;
+            this._requestDAL = _requestDAL;
         }
         public IActionResult MakeARequest()
         {
@@ -21,20 +21,29 @@ namespace ThomasNicoCarpool.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult MakeARequest(string departure, string arrival, DateTime date)
         {
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
                 string userSession = HttpContext.Session.GetString("User");
                 User u = JsonConvert.DeserializeObject<User>(userSession);
                 Request r = new Request(u, departure, arrival, date);
 
-                //if (r.SaveRequest(_request))
-                //    TempData["Message"] = "Request created successfully!";
-                //else
-                //    TempData["Message"] = "Error during the creation of the request !";
+                if (r.SaveRequest(_requestDAL))
+                    TempData["Message"] = "Request created successfully!";
+                else
+                    TempData["Message"] = "Error during the creation of the request !";
 
-                r.SaveRequest(_request);
-                return Redirect("/Carpool/SeeAllOffers");
+                //r.SaveRequest(_requestDAL);
+                return Redirect("/Request/SeeAllRequests");
             }
             return View();
+        }
+        public IActionResult SeeAllRequests()
+        {
+            string? userSession = HttpContext.Session.GetString("User");
+            User u = JsonConvert.DeserializeObject<User>(userSession);
+            ViewData["user"] = u.Nickname;
+
+            return View(Models.Request.GetRequests(_requestDAL));
         }
     }
 }

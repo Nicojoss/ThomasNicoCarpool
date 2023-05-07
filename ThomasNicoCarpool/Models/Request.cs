@@ -21,10 +21,12 @@ namespace ThomasNicoCarpool.Models
         {
             this.passenger = user;
         }
+
+        public Request(string departure, string arrival, DateTime date) : base(departure, arrival, date) { }
         // Ne pas oublier changer le return avec une liste
-        static List<Request> GetRequests() 
+        public static List<Request> GetRequests(IRequestDAL requestDAL) 
         {
-            return null;
+            return requestDAL.GetRequests();
         }
         public bool SaveRequest(IRequestDAL requestDAL)
         {

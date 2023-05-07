@@ -1,0 +1,24 @@
+﻿@model List<Request>
+@if (!string.IsNullOrEmpty((string)TempData["Message"]))
+{
+            <div class="alert alert-success">@TempData["Message"]</div>
+}
+@(ViewData["User"] + " this is the available Requests")
+<br />
+<a class="btn" style="border: 2px solid grey" asp-controller="Carpool" asp-action="SeeAllOffers">Return</a>
+<table class="table">
+    <tr>
+        <th>Departure</th>
+        <th>Arrival</th>
+        <th>Date</th>
+    </tr>
+    @foreach(Request r in Model)
+    {
+        <tr>
+            <td>@r.Departure</td>
+            <td>@r.Arrival</td>
+            <td>@r.Date</td>
+            <td><a class="btn" style="border: 2px solid grey" asp-controller="Carpool" asp-action="OfferACarpool">Add an offer for this Request</a></td>
+        </tr>
+    }
+</table>

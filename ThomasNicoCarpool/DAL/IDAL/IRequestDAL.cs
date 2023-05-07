@@ -4,6 +4,7 @@ namespace ThomasNicoCarpool.DAL.IDAL
 {
     public interface IRequestDAL
     {
+        public List<Request> GetRequests();
         public bool SaveRequest(Request request);
     }
 }
