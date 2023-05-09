@@ -45,5 +45,9 @@ namespace ThomasNicoCarpool.Models
             this.arrival = arrival;
             this.date = date;
         }
+        public Journey()
+        {
+            
+        }
     }
 }

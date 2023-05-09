@@ -1,1 +1,55 @@
-﻿
+﻿@model ThomasNicoCarpool.ViewModels.AddAnOffersViewModel
+
+<h1>Create an offer</h1>
+<form method="post" asp-controller="Carpool" asp-action="OfferACarpool">
+    <table> 
+        <tr>
+            <td><label asp-for="IdVehicle"></label></td>
+            <td><select asp-for="IdVehicle" class="form-control">
+                    @foreach (Vehicle vehicle in Model.Driver.Vehicles)
+                    {
+                        <option value="@vehicle.Id">@vehicle.ToString()</option>
+                    }
+                </select>
+            </td>
+            <td><span asp-validation-for="IdVehicle" class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Departure"></label></td>
+            <td><input asp-for="Departure"></td>
+            <td><span asp-validation-for="Departure" class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Arrival"></label></td>
+            <td><input asp-for="Arrival"></td>
+            <td><span asp-validation-for="Arrival"class="text-danger"></span></td>
+
+        </tr>
+        <tr>
+            <td><label asp-for="Date"></label></td>
+            <td><input asp-for="Date"></td>
+            <td><span asp-validation-for="Date"class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td><label asp-for="NbrKm"></label></td>
+            <td><input asp-for="NbrKm"></td>
+            <td><span asp-validation-for="NbrKm"class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Smoke"></label></td>
+            <td><input asp-for="Smoke"></td>
+            <td><span asp-validation-for="Smoke"class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Pause"></label></td>
+            <td><input asp-for="Pause"></td>
+            <td><span asp-validation-for="Pause"class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td><a asp-controller="Carpool" asp-action="SeeAllOffers">Cancel</a></td>
+            <td><input type="submit" value="Register" /></td>
+        </tr>
+    </table>
+</form>
+
+

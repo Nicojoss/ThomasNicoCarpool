@@ -83,7 +83,11 @@ namespace ThomasNicoCarpool.Models
             this.owner = owner;
 			this.carpools = new List<Carpool>();
         }
-        public List<Vehicle> GetVehiclesByUser(IVehicleDAL vehicleDAL)
+        public Vehicle()
+        {
+            
+        }
+        public static List<Vehicle> GetVehiclesByUser(IVehicleDAL vehicleDAL, User owner)
         {
             return vehicleDAL.GetVehiclesByUser(owner);
         }
@@ -91,5 +95,10 @@ namespace ThomasNicoCarpool.Models
 		{
             vehicleDAL.SaveVehicle(this);
 		}
+
+        public override string? ToString()
+        {
+            return $"Type vehicule {Type} nbrPlace available {nbrPlace} storagePlace available {storagePlace}";
+        }
     }
 }

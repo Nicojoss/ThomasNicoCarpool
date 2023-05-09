@@ -47,5 +47,29 @@ namespace ThomasNicoCarpool.DAL
             }
             return carpools;
         }
+
+        public bool SaveCarpool(Carpool carpool)
+        {
+            bool success = false;
+            string query = "INSERT INTO [Carpool](Departure, Arrival, Date, NbrKm, Smoke, Stop, Price, IdDriver, IdVehicle)" +
+                " VALUES (@Departure, @Arrival, @Date, @NbrKm, @Smoke, @Stop, @Price, @IdDriver, @IdVehicle)";
+
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("Departure", carpool.Departure);
+                cmd.Parameters.AddWithValue("Arrival", carpool.Arrival);
+                cmd.Parameters.AddWithValue("Date", carpool.Date);
+                cmd.Parameters.AddWithValue("NbrKm", carpool.NbrKm);
+                cmd.Parameters.AddWithValue("Smoke", carpool.Smoke);
+                cmd.Parameters.AddWithValue("Stop", carpool.Pause);
+                cmd.Parameters.AddWithValue("Price", carpool.Price);
+                cmd.Parameters.AddWithValue("IdDriver", carpool.Driver.Id);
+                cmd.Parameters.AddWithValue("IdVehicle", carpool.Vehicle_.Id);
+                connection.Open();
+                success = cmd.ExecuteNonQuery() > 0;
+                return success;
+            }
+        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿@model List<Request>
 @if (!string.IsNullOrEmpty((string)TempData["Message"]))
 {
-            <div class="alert alert-success">@TempData["Message"]</div>
+    <div class="alert alert-success">@TempData["Message"]</div>
 }
 @(ViewData["User"] + " this is the available Requests")
 <br />
@@ -18,7 +18,7 @@
             <td>@r.Departure</td>
             <td>@r.Arrival</td>
             <td>@r.Date</td>
-            <td><a class="btn" style="border: 2px solid grey" asp-controller="Carpool" asp-action="OfferACarpool">Add an offer for this Request</a></td>
+            <td><a asp-controller="Carpool" asp-action="OfferACarpool" asp-route-id="@r.Id">Create an Offer</a></td>
         </tr>
     }
 </table>

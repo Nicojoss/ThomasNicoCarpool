@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using ThomasNicoCarpool.DAL;
 using ThomasNicoCarpool.DAL.IDAL;
+using ThomasNicoCarpool.ViewModels;
 
 namespace ThomasNicoCarpool.Models
 {
@@ -14,7 +14,6 @@ namespace ThomasNicoCarpool.Models
         private User driver;
         private List<Review> reviews;
         private Vehicle vehicle;
-        private Request request;
 
         [Required(ErrorMessage = "Number of Km Invalid!"), Range(0, 5000, ErrorMessage = "Enter a positive number between 0 and 5000 km.")]
         public int NbrKm
@@ -95,15 +94,28 @@ namespace ThomasNicoCarpool.Models
 			this.reviews = new List<Review>();
         }
 		// Create the carpool with the request attribut in CarpoolController action OfferACarpool(Request) 
-        public Carpool(string departure, string arrival, DateTime date, User driver, Vehicle vehicle) : base(departure, arrival, date)
+        public Carpool(string departure, string arrival, DateTime date, User driver) : base(departure, arrival, date)
         {
 			this.Departure = departure;
 			this.Arrival = arrival;
 			this.Date = date;
 			this.driver = driver;
-			this.vehicle = vehicle;
         }
-
+        public Carpool(AddAnOffersViewModel cvm)
+        {
+            this.Departure = cvm.Departure;
+			this.Arrival = cvm.Arrival;
+			this.Date = cvm.Date;
+			this.NbrKm = cvm.NbrKm;
+			this.Smoke = cvm.Smoke;
+			this.Pause = cvm.Pause;
+			this.driver = cvm.Driver;
+			/*this.Vehicle_ = cvm.Vehicle;*/
+        }
+        public Carpool()
+        {
+            
+        }
         public static List<Carpool> GetOffers(ICarpoolDAL carpool)
 		{
 			List<Carpool> carpools = carpool.GetOffers();
@@ -113,11 +125,12 @@ namespace ThomasNicoCarpool.Models
 		{
 			return null;
 		}
-		public void SaveCarpool()
+		public bool SaveCarpool(ICarpoolDAL carpool)
 		{
-
+			return carpool.SaveCarpool(this);
 		}
 		public void AddRegistration(Registration registration) => this.registrations.Add(registration);
 		public void AddReview(Review review) => this.reviews.Add(review);
+		public double GetPrice() { return this.nbrKm*0.5; }
     }
 }

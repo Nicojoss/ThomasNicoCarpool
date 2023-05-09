@@ -27,7 +27,7 @@ namespace ThomasNicoCarpool.DAL
                 {
                     while (reader.Read())
                     {
-                        Vehicle v = new Vehicle(reader.GetInt32("IdVehicle"), reader.GetString("Type"),
+                        Vehicle v = new Vehicle(reader.GetInt32("Id"), reader.GetString("Type"),
                                                 reader.GetInt32("NbrPlace"), reader.GetInt32("StoragePlace"),
                                                 Convert.ToDouble(reader.GetDecimal("PriceMultiplier")), u);
                         vehicles.Add(v);

@@ -152,6 +152,21 @@ namespace ThomasNicoCarpool.Models
         public void AddCarpool(Carpool carpool) => this.carpools.Add(carpool);
         public void AddRegistration(Registration registration) => this.registrations.Add(registration);
         public void AddReview(Review review) => this.reviews.Add(review);
-        public void AddVehicle(Vehicle vehicle) => this.vehicles.Add(vehicle);
+        public void AddVehicle(Vehicle vehicle)
+        {
+            if(!vehicles.Contains(vehicle))
+                this.vehicles.Add(vehicle);
+        }
+        public Vehicle GetVehicle(int id)
+        {
+            foreach (Vehicle v in Vehicles)
+            {
+                if (v.Id == id)
+                {
+                    return v;
+                }
+            }
+            return null;
+        }
     }
 }

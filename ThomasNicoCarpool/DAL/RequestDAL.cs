@@ -34,7 +34,7 @@ namespace ThomasNicoCarpool.DAL
         public List<Request> GetRequests()
         {
             List<Request> requests = new List<Request>();
-            string query = "SELECT Departure, Arrival, Date FROM Request";
+            string query = "SELECT Id, Departure, Arrival, Date FROM [Request]";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(query, connection);
@@ -43,12 +43,32 @@ namespace ThomasNicoCarpool.DAL
                 {
                     while (reader.Read())
                     {
-                        Request request = new Request(reader.GetString("Departure"), reader.GetString("Arrival"), reader.GetDateTime("Date"));
+                        Request request = new Request(reader.GetInt32("Id"),reader.GetString("Departure"), reader.GetString("Arrival"), reader.GetDateTime("Date"));
                         requests.Add(request);
                     }
                 }
             }
             return requests;
+        }
+
+        public Request GetRequestById(int id)
+        {
+            Request request = null;
+            string query = "SELECT Id, Departure, Arrival, Date FROM [Request] WHERE Id = @Id";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("Id", id);
+                connection.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        request = new Request(reader.GetInt32("Id"), reader.GetString("Departure"), reader.GetString("Arrival"), reader.GetDateTime("Date"));
+                    }
+                }
+            }
+            return request;
         }
     }
 }
