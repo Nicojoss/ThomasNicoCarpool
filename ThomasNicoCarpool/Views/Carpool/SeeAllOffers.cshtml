@@ -1,4 +1,9 @@
 ﻿@model List<Carpool>
+@using Newtonsoft.Json;
+@if (!string.IsNullOrEmpty((string)TempData["Message"]))
+{
+                <div class="alert alert-success">@TempData["Message"]</div>
+}
 <a class="btn" style="border: 2px solid grey" asp-controller="Carpool" asp-action="OfferAEmptyCarpool">Add an offer</a>
 <a class="btn" style="border: 2px solid grey" asp-controller="Request" asp-action="SeeAllRequests">See all request(s)</a>
 <a class="btn" style="border: 2px solid grey" asp-controller="Request" asp-action="MakeARequest">Make a request</a>
@@ -20,6 +25,7 @@
     </tr>
     @foreach(Carpool c in Model)
     {
+        string carpoolJson = JsonConvert.SerializeObject(c, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
         <tr>
             <td>@c.Id</td>
             <td>@c.Departure</td>
@@ -27,6 +33,8 @@
             <td>@c.Date</td>
             <td>@c.Smoke</td>
             <td>@c.Pause</td>
+            <td><a asp-controller="Review" asp-action="ConsultReview" asp-route-JsonCarpool="@carpoolJson">Consult review</a></td>
+            <td><a asp-controller="Registration" asp-action="RegisterForACarpool" asp-route-JsonCarpool="@carpoolJson">Register</a></td>
         </tr>
     }
 </table>

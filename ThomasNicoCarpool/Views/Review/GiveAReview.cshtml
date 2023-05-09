@@ -1,0 +1,21 @@
+﻿@model Review
+@{
+    <h1 style="text-align:center">Give a  review</h1>
+    <br />
+    <a class="btn" style="border: 2px solid grey" asp-controller="Registration" asp-action="ConsultRegistrations">Return</a>
+    <br />
+    <div>
+            <form asp-controller="Review" asp-action="GiveAReview" method="post">
+                <label asp-for="Rating">Rating :</label>
+                <input asp-for="Rating" value="1" min="1" max="5"/>
+                <span asp-validation-for="Rating" style="color:red"></span>
+                <br />
+
+                <label asp-for="Comment">Comment :</label>
+                <input asp-for="Comment" type="text" />
+                <span asp-validation-for="Comment" style="color:red"></span>
+                <br />
+                <input type="submit" value="Confirm" />
+            </form>
+    </div>
+}

@@ -31,7 +31,7 @@ namespace ThomasNicoCarpool.Models
 			get { return date; }
 			set { date = value; }
 		}
-
+        public Journey() { }
         protected Journey(int id, string departure, string arrival, DateTime date)
         {
             this.id = id;
@@ -44,10 +44,6 @@ namespace ThomasNicoCarpool.Models
             this.departure = departure;
             this.arrival = arrival;
             this.date = date;
-        }
-        public Journey()
-        {
-            
         }
     }
 }

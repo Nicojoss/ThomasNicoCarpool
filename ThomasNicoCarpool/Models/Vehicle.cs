@@ -62,7 +62,7 @@ namespace ThomasNicoCarpool.Models
             this.owner = owner;
 			carpools = new List<Carpool>();
         }
-
+        public Vehicle() { }
         public Vehicle(int id, TypeVehicle type, int nbrPlace, int storagePlace, double priceMultiplier, List<Carpool> carpools, User owner)
         {
             this.id = id;
@@ -82,10 +82,6 @@ namespace ThomasNicoCarpool.Models
             this.priceMultiplier = priceMultiplier;
             this.owner = owner;
 			this.carpools = new List<Carpool>();
-        }
-        public Vehicle()
-        {
-            
         }
         public static List<Vehicle> GetVehiclesByUser(IVehicleDAL vehicleDAL, User owner)
         {

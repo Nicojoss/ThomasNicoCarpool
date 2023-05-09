@@ -56,7 +56,7 @@ namespace ThomasNicoCarpool.Models
 			get { return vehicle; }
 			set { vehicle = value; }
 		}
-
+		public Carpool() { }
         public Carpool(int id, string departure, string arrival, DateTime date, int nbrKm, bool smoke, bool pause, double price, User driver, Vehicle vehicle)
 			: base(id, departure, arrival, date)
         {
@@ -66,6 +66,7 @@ namespace ThomasNicoCarpool.Models
             this.price = price;
             this.driver = driver;
             this.vehicle = vehicle;
+			this.registrations = new List<Registration>();
         }
 
         public Carpool(int id, string departure, string arrival, DateTime date,int nbrKm, bool smoke, bool pause, double price, List<Registration> registrations, User driver, List<Review> reviews, Vehicle vehicle)
@@ -112,10 +113,6 @@ namespace ThomasNicoCarpool.Models
 			this.driver = cvm.Driver;
 			/*this.Vehicle_ = cvm.Vehicle;*/
         }
-        public Carpool()
-        {
-            
-        }
         public static List<Carpool> GetOffers(ICarpoolDAL carpool)
 		{
 			List<Carpool> carpools = carpool.GetOffers();
@@ -129,8 +126,40 @@ namespace ThomasNicoCarpool.Models
 		{
 			return carpool.SaveCarpool(this);
 		}
-		public void AddRegistration(Registration registration) => this.registrations.Add(registration);
+		public void AddRegistration(Registration registration) { 
+			if(!registrations.Contains(registration))
+				registrations.Add(registration);
+		}
 		public void AddReview(Review review) => this.reviews.Add(review);
+		public int CalculateNbrPlaceRemaining() {
+			int total = vehicle.NbrPlace;
+			foreach(var registration in this.registrations)
+			{
+				total -= registration.NbrPlaceTaken;
+			}
+			return total; 
+		}
+        public int CalculateNbrLuggageRemaining()
+        {
+            int total = vehicle.StoragePlace;
+            foreach (var registration in this.registrations)
+            {
+                total -= registration.NbrLuggage;
+            }
+            return total;
+        }
+		public double CalculatePrice() {
+			double totalPassenger = 0;
+			foreach (var registration in this.registrations)
+			{
+				totalPassenger += registration.NbrPlaceTaken;
+			}
+			if (totalPassenger==0)
+			{
+				totalPassenger = 1;
+			}
+			return (price * vehicle.PriceMultiplier) / totalPassenger;
+		}
 		public double GetPrice() { return this.nbrKm*0.5; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ThomasNicoCarpool.DAL.IDAL;
 
 namespace ThomasNicoCarpool.Models
 {
@@ -15,7 +16,7 @@ namespace ThomasNicoCarpool.Models
 			set { id = value; }
 		}
 
-        [Range(0, 5, ErrorMessage = "Enter a rating between 0 and 5 !.")]
+        [Required(ErrorMessage = "Rating invalid!"), Range(1, 5, ErrorMessage = "Enter a rating between 1 and 5 !")]
         public int Rating
 		{
 			get { return rating; }
@@ -54,13 +55,19 @@ namespace ThomasNicoCarpool.Models
             this.passenger = user;
             this.carpool = carpool;
         }
-		static List<Review> GetReviewByDriver(User user)
+        public Review(int id, int rating, string comment)
+        {
+            this.id = id;
+            this.rating = rating;
+            this.comment = comment;
+        }
+        public static List<Review> GetReviewByDriver(IReviewDAL reviewDAL ,User user)
 		{
-			return null;
+			return reviewDAL.GetReviewsByDriver(user);
 		}
-		static void SaveReview()
+		public bool SaveReview(IReviewDAL reviewDAL)
 		{
-
+			return reviewDAL.SaveReview(this);
 		}
     }
 }

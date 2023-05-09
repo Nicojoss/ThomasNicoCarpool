@@ -21,6 +21,11 @@ namespace ThomasNicoCarpool.DAL
                 "JOIN [User] ON [Carpool].IdDriver = [User].id " +
                 "JOIN [Vehicle] ON [Carpool].IdVehicle = [Vehicle].Id " +
                 "WHERE Date > @date";
+
+            string query2 = "SELECT * FROM [Registration] " +
+                "JOIN [Carpool] ON [Registration].IdCarpool = [Carpool].Id " +
+                "JOIN [User] ON [Registration].IdUser = [User].Id " +
+                "WHERE [Registration].IdCarpool = @IdCarpool";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(query, connection);
@@ -41,7 +46,29 @@ namespace ThomasNicoCarpool.DAL
                                        reader.GetString("Arrival"), reader.GetDateTime("Date"),
                                        reader.GetInt32("NbrKm"), Convert.ToBoolean(reader.GetInt32("Smoke")),
                                        Convert.ToBoolean(reader.GetInt32("Stop")), Convert.ToDouble(reader.GetDecimal("Price")), u, v);
-                        carpools.Add(c);                        
+                        carpools.Add(c);
+                    }
+                    reader.Close();
+                }
+                foreach (var c in carpools)
+                {
+                    SqlCommand cmd2 = new SqlCommand(query2, connection);
+                    cmd2.Parameters.AddWithValue("IdCarpool", c.Id);
+                    using (SqlDataReader reader2 = cmd2.ExecuteReader())
+                    {
+                        while (reader2.Read())
+                        {
+                            User passenger = new User(reader2.GetInt32("IdUser"), reader2.GetString("Firstname"),
+                                  reader2.GetString("Lastname"), reader2.GetString("Nickname"),
+                                  reader2.GetString("Telephone"), reader2.GetString("Email"),
+                                  null);
+                            Registration reg = new Registration(reader2.GetInt32("Id"),
+                                reader2.GetInt32("NbrPlace"),
+                                reader2.GetInt32("NbrLuggage"),
+                                passenger,
+                                c);
+                            c.AddRegistration(reg);
+                        }
                     }
                 }
             }

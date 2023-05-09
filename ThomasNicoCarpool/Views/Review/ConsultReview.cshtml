@@ -1,0 +1,16 @@
+﻿@model List<Review>
+
+<a class="btn" style="border: 2px solid grey" asp-controller="Carpool" asp-action="SeeAllOffers">Return</a>
+<table class="table">
+    <tr>
+        <th>Rating</th>
+        <th>Comment</th>
+    </tr>
+    @foreach (Review r in Model)
+    {
+            <tr>
+                <td>@r.Rating</td>
+                <td>@r.Comment</td>
+            </tr>
+    }
+</table>
