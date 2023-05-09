@@ -7,7 +7,7 @@
     <div>
             <form asp-controller="Review" asp-action="GiveAReview" method="post">
                 <label asp-for="Rating">Rating :</label>
-                <input asp-for="Rating"/>
+                <input asp-for="Rating" value="1" min="1" max="5"/>
                 <span asp-validation-for="Rating" style="color:red"></span>
                 <br />
 

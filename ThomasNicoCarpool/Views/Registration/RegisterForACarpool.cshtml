@@ -1,0 +1,21 @@
+﻿@model Registration
+@{
+    <h1 style="text-align:center">Register for a carpool</h1>
+    <br />
+    <a class="btn" style="border: 2px solid grey" asp-controller="Carpool" asp-action="SeeAllOffers">Return</a>
+    <br />
+    <div>
+            <form asp-controller="Registration" asp-action="RegisterForACarpool" method="post">
+                <label asp-for="NbrPlaceTaken">Number of place :</label>
+                <input asp-for="NbrPlaceTaken" type="number" max="@Model.Carpool_.CalculateNbrPlaceRemaining()" min="1" />
+                <span asp-validation-for="NbrPlaceTaken" style="color:red"></span>
+                <br />
+
+                <label asp-for="NbrLuggage">Number of luggage :</label>
+                <input asp-for="NbrLuggage" type="number" value="0" max="@Model.Carpool_.CalculateNbrLuggageRemaining()" min="0" />
+                <span asp-validation-for="NbrLuggage" style="color:red"></span>
+                <br />
+                <input type="submit" value="Confirm" />
+            </form>
+    </div>
+}

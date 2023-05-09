@@ -1,0 +1,15 @@
+﻿@model Carpool
+
+@{
+    <h1 style="text-align:center">Register for a carpool</h1>
+    <br />
+    <a class="btn" style="border: 2px solid grey" asp-controller="Carpool" asp-action="SeeAllOffers">Return</a>
+    <br />
+    <div>
+            <form asp-controller="Registration" asp-action="ConfirmRegistration" method="post">
+                <label>Price per passenger : @Model.CalculatePrice()</label>
+                <br />
+                <input type="submit" value="Confirm" />
+            </form>
+    </div>
+}

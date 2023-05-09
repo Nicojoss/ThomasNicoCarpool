@@ -56,5 +56,24 @@ namespace ThomasNicoCarpool.DAL
             }
             return registration;
         }
+
+        public bool SaveRegistration(Registration registration)
+        {
+            bool success = false;
+            string query = "INSERT INTO [Registration] (NbrPlace, NbrLuggage, IdUser, IdCarpool)" +
+                " VALUES (@NbrPlace, @NbrLuggage, @IdUser, @IdCarpool)";
+
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("NbrPlace", registration.NbrPlaceTaken);
+                cmd.Parameters.AddWithValue("NbrLuggage", registration.NbrLuggage);
+                cmd.Parameters.AddWithValue("IdUser", registration.Passenger.Id);
+                cmd.Parameters.AddWithValue("IdCarpool", registration.Carpool_.Id);
+                connection.Open();
+                success = cmd.ExecuteNonQuery() > 0;
+                return success;
+            }
+        }
     }
 }

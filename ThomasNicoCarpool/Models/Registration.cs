@@ -1,6 +1,7 @@
 ﻿using ThomasNicoCarpool.DAL.IDAL;
 
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 
 namespace ThomasNicoCarpool.Models
 {
@@ -16,13 +17,13 @@ namespace ThomasNicoCarpool.Models
 			get { return id; }
 			set { id = value; }
 		}
-		[Required(ErrorMessage = "Field Invalid!"), Range(0, 10)]
+		[Required(ErrorMessage = "Field Invalid!")]
 		public int NbrPlaceTaken
 		{
 			get { return nbrPlaceTaken; }
 			set { nbrPlaceTaken = value; }
 		}
-        [Required(ErrorMessage = "Field Invalid!"), Range(0, 10)]
+        [Required(ErrorMessage = "Field Invalid!")]
         public int NbrLuggage
 		{
 			get { return nbrLuggage; }
@@ -59,9 +60,9 @@ namespace ThomasNicoCarpool.Models
 		{
 			return registrationDAL.GetRegistrationByUser(user);
 		}
-		public void SaveRegistration()
+		public bool SaveRegistration(IRegistrationDAL registrationDAL)
 		{
-
+			return registrationDAL.SaveRegistration(this);
 		}
     }
 }
