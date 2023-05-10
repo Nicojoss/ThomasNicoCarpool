@@ -8,7 +8,9 @@
         <th>Departure</th>
         <th>Arrival</th>
         <th>Driver's number'</th>
-        <th>Price</th>
+        <th>Place taken</th>
+        <th>Number of luggage</th>
+        <th>Price/Person</th>
 
     </tr>
     @foreach (Registration r in Model)
@@ -18,7 +20,9 @@
                 <td>@r.Carpool_.Departure</td>
                 <td>@r.Carpool_.Arrival</td>
                 <td>@r.Carpool_.Driver.Telephone</td>
-                <td>Calculated price</td>
+                <td>@r.NbrPlaceTaken</td>
+                <td>@r.NbrLuggage</td>
+                <td>@r.Carpool_.CalculatePrice()</td>
                 <td><a asp-controller="Review" asp-action="GiveAReview" asp-route-id="@r.Id">Give a review</a></td>
             </tr>
     }
