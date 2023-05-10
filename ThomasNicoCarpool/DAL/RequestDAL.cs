@@ -38,10 +38,11 @@ namespace ThomasNicoCarpool.DAL
         public List<Request> GetRequests()
         {
             List<Request> requests = new List<Request>();
-            string query = "SELECT Id, Departure, Arrival, Date FROM [Request]";
+            string query = "SELECT Id, Departure, Arrival, Date FROM [Request] WHERE Date > @Date";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("Date", DateTime.Now);
                 connection.Open();
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
