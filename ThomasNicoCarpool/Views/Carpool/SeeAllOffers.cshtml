@@ -21,7 +21,7 @@
         <th>Date</th>
         <th>Smoke</th>
         <th>Pause</th>
-
+        <th>Place remaining</th>
     </tr>
     @foreach(Carpool c in Model)
     {
@@ -33,6 +33,7 @@
             <td>@c.Date</td>
             <td>@c.Smoke</td>
             <td>@c.Pause</td>
+            <td>@c.CalculateNbrPlaceRemaining()</td>
             <td><a asp-controller="Review" asp-action="ConsultReview" asp-route-JsonCarpool="@carpoolJson">Consult review</a></td>
             <td><a asp-controller="Registration" asp-action="RegisterForACarpool" asp-route-JsonCarpool="@carpoolJson">Register</a></td>
         </tr>

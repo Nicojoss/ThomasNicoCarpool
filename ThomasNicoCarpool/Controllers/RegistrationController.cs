@@ -16,6 +16,11 @@ namespace ThomasNicoCarpool.Controllers
         public IActionResult ConsultRegistrations()
         {
             string userSession = HttpContext.Session.GetString("User");
+            if (string.IsNullOrEmpty(userSession))
+            {
+                TempData["Message"] = "Please Authenticate in first";
+                return RedirectToAction("Authenticate", "User");
+            }
             User u = JsonConvert.DeserializeObject<User>(userSession);
             List<Registration> registrations = Registration.GetRegistrationByUser(u, _registration);
             foreach (var registration in registrations)
@@ -28,6 +33,12 @@ namespace ThomasNicoCarpool.Controllers
         }
         public IActionResult RegisterForACarpool(string JsonCarpool)
         {
+            string userSession = HttpContext.Session.GetString("User");
+            if (string.IsNullOrEmpty(userSession))
+            {
+                TempData["Message"] = "Please Authenticate in first";
+                return RedirectToAction("Authenticate", "User");
+            }
             HttpContext.Session.SetString("Carpool", JsonCarpool);
             Carpool c = JsonConvert.DeserializeObject<Carpool>(JsonCarpool);
             Registration registrationModel = new Registration();
@@ -44,7 +55,7 @@ namespace ThomasNicoCarpool.Controllers
                 string carpool_session = HttpContext.Session.GetString("Carpool");
                 Carpool carpool = JsonConvert.DeserializeObject<Carpool>(carpool_session);
                 string user_session = HttpContext.Session.GetString("User");
-                User u = JsonConvert.DeserializeObject<User>(user_session);
+                User? u = JsonConvert.DeserializeObject<User>(user_session);
 
                 Registration reg = new Registration(NbrPlaceTaken, nbrLuggage, u, carpool);
                 carpool.AddRegistration(reg);

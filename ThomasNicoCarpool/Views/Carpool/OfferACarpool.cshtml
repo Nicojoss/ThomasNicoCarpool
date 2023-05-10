@@ -4,7 +4,7 @@
 <form method="post" asp-controller="Carpool" asp-action="OfferACarpool">
     <table> 
         <tr>
-            <td><label asp-for="IdVehicle"></label></td>
+            <td><label asp-for="IdVehicle">Vehicle</label></td>
             <td><select asp-for="IdVehicle" class="form-control">
                     @foreach (Vehicle vehicle in Model.Driver.Vehicles)
                     {
@@ -27,12 +27,12 @@
         </tr>
         <tr>
             <td><label asp-for="Date"></label></td>
-            <td><input type="datetime-local" asp-for="Date"></td>
+            <td><input type="datetime-local" asp-for="Date" value="@DateTime.Now"></td>
             <td><span asp-validation-for="Date"class="text-danger"></span></td>
         </tr>
         <tr>
             <td><label asp-for="NbrKm"></label></td>
-            <td><input asp-for="NbrKm"></td>
+            <td><input asp-for="NbrKm" min="1"></td>
             <td><span asp-validation-for="NbrKm"class="text-danger"></span></td>
         </tr>
         <tr>
@@ -46,8 +46,8 @@
             <td><span asp-validation-for="Pause"class="text-danger"></span></td>
         </tr>
         <tr>
-            <td><a asp-controller="Carpool" asp-action="SeeAllOffers">Cancel</a></td>
-            <td><input type="submit" value="Register" /></td>
+            <td><a asp-controller="Carpool" asp-action="SeeAllOffers" class="btn" style="border: 2px solid grey">Cancel</a></td>
+            <td><input type="submit" class="btn btn-primary" value="Register" /></td>
         </tr>
     </table>
 </form>

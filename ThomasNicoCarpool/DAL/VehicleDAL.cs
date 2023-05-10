@@ -39,8 +39,8 @@ namespace ThomasNicoCarpool.DAL
         public bool SaveVehicle(Vehicle vehicle)
         {
             bool success = false;
-            string query = "INSERT INTO [Vehicle](Type, NbrPlace, StoragePlace, PriceMultiplier, IdUser )" +
-                " VALUES (@Type, @NbrPlace, @PriceMultiplier, @IdUser)";
+            string query = "INSERT INTO [Vehicle](Type, NbrPlace, StoragePlace, PriceMultiplier, IdUser)" +
+                " VALUES (@Type, @NbrPlace, @StoragePlace, @PriceMultiplier, @IdUser)";
 
             using (SqlConnection connection = new SqlConnection(this.connectionString))
             {

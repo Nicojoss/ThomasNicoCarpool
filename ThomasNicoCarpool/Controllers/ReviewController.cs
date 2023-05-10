@@ -16,6 +16,11 @@ namespace ThomasNicoCarpool.Controllers
         public IActionResult GiveAReview(int id)
         {
             string userSession = HttpContext.Session.GetString("User");
+            if (string.IsNullOrEmpty(userSession))
+            {
+                TempData["Message"] = "Please Authenticate in first";
+                return RedirectToAction("Authenticate", "User");
+            }
             User u = JsonConvert.DeserializeObject<User>(userSession);
             Registration reg= u.GetRegistrationsById(id);
             HttpContext.Session.SetString("Registration", JsonConvert.SerializeObject(reg));
@@ -46,6 +51,11 @@ namespace ThomasNicoCarpool.Controllers
 
         public IActionResult ConsultReview(string JsonCarpool)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("User")))
+            {
+                TempData["Message"] = "Please Authenticate in first";
+                return RedirectToAction("Authenticate", "User");
+            }
             Carpool carpool = JsonConvert.DeserializeObject<Carpool>(JsonCarpool);
             List<Review> reviews = Review.GetReviewByDriver(_review, carpool.Driver);
             return View(reviews);

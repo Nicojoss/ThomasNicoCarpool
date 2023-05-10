@@ -18,7 +18,11 @@ namespace ThomasNicoCarpool.DAL
         {
             bool success = false;
             string query = "INSERT INTO [Request] (Departure, Arrival, Date, IdUser) VALUES(@Departure,@Arrival,@Date,@IdUser)";
-
+            
+            if (request.Date < DateTime.Now)
+            {
+                return success;
+            }
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(query, connection);
@@ -69,6 +73,20 @@ namespace ThomasNicoCarpool.DAL
                 }
             }
             return request;
+        }
+
+        public bool RemoveRequestById(int id)
+        {
+            bool success = false;
+            string query = "DELETE FROM [Request] WHERE Id = @Id";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("Id", id);
+                connection.Open();
+                success = cmd.ExecuteNonQuery() > 0;
+            }
+            return success;
         }
     }
 }

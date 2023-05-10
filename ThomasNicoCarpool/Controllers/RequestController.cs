@@ -15,15 +15,28 @@ namespace ThomasNicoCarpool.Controllers
         }
         public IActionResult MakeARequest()
         {
+            string userSession = HttpContext.Session.GetString("User");
+            if(string.IsNullOrEmpty(userSession) )
+            {
+                TempData["Message"] = "Please Authenticate in first";
+                return RedirectToAction("Authenticate", "User");
+            }
+
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult MakeARequest(string departure, string arrival, DateTime date)
         {
+            string userSession = HttpContext.Session.GetString("User");
+            if (string.IsNullOrEmpty(userSession))
+            {
+                TempData["Message"] = "Please Authenticate in first";
+                return RedirectToAction("Authenticate", "User");
+            }
+
             if (ModelState.IsValid)
             {
-                string userSession = HttpContext.Session.GetString("User");
                 User u = JsonConvert.DeserializeObject<User>(userSession);
                 Request r = new Request(u, departure, arrival, date);
 
@@ -40,6 +53,11 @@ namespace ThomasNicoCarpool.Controllers
         public IActionResult SeeAllRequests()
         {
             string? userSession = HttpContext.Session.GetString("User");
+            if (string.IsNullOrEmpty(userSession))
+            {
+                TempData["Message"] = "Please Authenticate in first";
+                return RedirectToAction("Authenticate", "User");
+            }
             User u = JsonConvert.DeserializeObject<User>(userSession);
             ViewData["user"] = u.Nickname;
 

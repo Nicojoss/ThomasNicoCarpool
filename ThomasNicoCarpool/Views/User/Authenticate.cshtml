@@ -1,4 +1,8 @@
 ﻿@model User
+@if (!string.IsNullOrEmpty((string)TempData["Message"]))
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
 @{
     <h1 style="text-align:center">Authentication page</h1>
 <br />

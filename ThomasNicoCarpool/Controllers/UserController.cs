@@ -10,10 +10,12 @@ namespace ThomasNicoCarpool.Controllers
     public class UserController : Controller
     {
         private readonly IUserDAL _user;
+        private readonly IVehicleDAL _vehicle;
 
-        public UserController(IUserDAL _user)
+        public UserController(IUserDAL _user, IVehicleDAL _vehicle)
         {
             this._user = _user;
+            this._vehicle = _vehicle;
         }
         public IActionResult CreateAccount()
         {
@@ -46,11 +48,49 @@ namespace ThomasNicoCarpool.Controllers
             {
                 return RedirectToAction("Authenticate", "User");
             }
-            // Rajouter l'objet en Session à voir Mardi
             HttpContext.Session.SetString("User", JsonConvert.SerializeObject(u)); 
-            //string User_session = HttpContext.Session.GetString("User");
-
+  
             return Redirect("/Carpool/SeeAllOffers");
+        }
+        public IActionResult AddVehicle()
+        {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("User")))
+            {
+                TempData["Message"] = "Please Authenticate in first";
+                return RedirectToAction("Authenticate", "User");
+            }
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddVehicle(AddVehicleViewModel vehicleVm)
+        {
+            string userSession = HttpContext.Session.GetString("User");
+            if (userSession == null)
+            {
+                TempData["Message"] = "Please Authenticate in first";
+                return RedirectToAction("Authenticate", "User");
+            }
+            User u = JsonConvert.DeserializeObject<User>(userSession);
+
+            if (ModelState.IsValid)
+            {
+                Vehicle vehicle = new Vehicle(vehicleVm);
+                vehicle.Owner = u;
+                vehicle.SaveVehicle(_vehicle);
+
+                TempData["Message"] = "Vehicle added successfully!";
+                return RedirectToAction("SeeAllOffers", "Carpool");
+            }
+            return View(vehicleVm); 
+        }
+        public IActionResult Disconnect()
+        {
+
+            HttpContext.Session.Clear();
+
+            TempData["Message"] = "Disconnected Successfully!";
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -7,5 +7,6 @@ namespace ThomasNicoCarpool.DAL.IDAL
         public List<Request> GetRequests();
         public bool SaveRequest(Request request);
         public Request GetRequestById(int id);
+        public bool RemoveRequestById(int id);
     }
 }

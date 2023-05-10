@@ -1,0 +1,38 @@
+﻿@model ThomasNicoCarpool.ViewModels.AddVehicleViewModel
+
+<h1>Add Vehicle</h1>
+
+<form method="post" asp-controller="User" asp-action="AddVehicle">
+    <table>
+        <tr>
+            <td><label asp-for="Type">Type:</label></td>
+            <td>
+                <select asp-for="Type" class="form-control">
+                    @foreach (TypeVehicle type in Enum.GetValues(typeof(TypeVehicle)))
+                    {
+                        <option value="@type">@type</option>
+                    }
+                </select>
+            </td>
+            <td><span asp-validation-for="Type" class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td><label asp-for="NbrPlace">Number of Places:</label></td>
+            <td>
+                <input type="number" asp-for="NbrPlace" min="0" max="10" class="form-control" />
+            </td>
+            <td><span asp-validation-for="NbrPlace" class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td><label asp-for="StoragePlace">Storage Places:</label></td>
+            <td>
+                <input type="number" asp-for="StoragePlace" min="0" max="10" class="form-control"/>
+            </td>
+            <td><span asp-validation-for="StoragePlace" class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td><a asp-controller="Carpool" asp-action="SeeAllOffers" class="btn" style="border: 2px solid grey">Cancel</a></td>
+            <td><input type="submit" class="btn btn-primary" value="AddVehicle" /></td>
+        </tr>
+    </table>
+</form>

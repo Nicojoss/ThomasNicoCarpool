@@ -72,6 +72,41 @@ namespace ThomasNicoCarpool.DAL
                     }
                 }
             }
+            List<Carpool> carpools2 = new List<Carpool>();
+            foreach(var c in carpools)
+            {
+                if(c.CalculateNbrPlaceRemaining() > 0)
+                {
+                    carpools2.Add(c);
+                }
+            }
+            return carpools2;
+        }
+
+        public List<Carpool> GetOffersByDriver(User u)
+        {
+            List<Carpool> carpools = new List<Carpool>();
+            string query = "SELECT * FROM Carpool WHERE IdDriver = @IdDriver AND Date > @date";
+
+            using(SqlConnection connection = new SqlConnection(connectionString)) 
+            {
+                SqlCommand cmd = new SqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("IdDriver", u.Id);
+                cmd.Parameters.AddWithValue("date", DateTime.Now);
+                connection.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Carpool carpool = new Carpool(reader.GetInt32("Id"), reader.GetString("Departure"),
+                                                        reader.GetString("Arrival"), reader.GetDateTime("Date"), reader.GetInt32("NbrKm"),
+                                                        Convert.ToBoolean(reader.GetInt32("Smoke")), Convert.ToBoolean(reader.GetInt32("Stop")),
+                                                        Convert.ToDouble(reader.GetDecimal("Price")));
+                        carpools.Add(carpool);
+                    }
+                    reader.Close();
+                }
+            }
             return carpools;
         }
 
@@ -80,7 +115,10 @@ namespace ThomasNicoCarpool.DAL
             bool success = false;
             string query = "INSERT INTO [Carpool](Departure, Arrival, Date, NbrKm, Smoke, Stop, Price, IdDriver, IdVehicle)" +
                 " VALUES (@Departure, @Arrival, @Date, @NbrKm, @Smoke, @Stop, @Price, @IdDriver, @IdVehicle)";
-
+            if(carpool.Date < DateTime.Now)
+            {
+                return success;
+            }
             using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
                 SqlCommand cmd = new SqlCommand(query, connection);

@@ -20,7 +20,13 @@ namespace ThomasNicoCarpool.Controllers
         public IActionResult SeeAllOffers()
         {
             string? userSession = HttpContext.Session.GetString("User");
+            if (string.IsNullOrEmpty(userSession))
+            {
+                TempData["Message"] = "Please Authenticate in first";
+                return RedirectToAction("Authenticate", "User");
+            }
             User u = JsonConvert.DeserializeObject<User>(userSession);
+
             ViewData["user"] = u.Nickname;
 
             return View(Carpool.GetOffers(_carpool));
@@ -28,6 +34,11 @@ namespace ThomasNicoCarpool.Controllers
         public IActionResult OfferAEmptyCarpool()
         {
             string? userSession = HttpContext.Session.GetString("User");
+            if (string.IsNullOrEmpty(userSession))
+            {
+                TempData["Message"] = "Please Authenticate in first";
+                return RedirectToAction("Authenticate", "User");
+            }
             User u = JsonConvert.DeserializeObject<User>(userSession);
 
             List<Vehicle> vehicles = Vehicle.GetVehiclesByUser(_vehicle, u);
@@ -44,6 +55,11 @@ namespace ThomasNicoCarpool.Controllers
         public IActionResult OfferACarpool(int id)
         {
             string? userSession = HttpContext.Session.GetString("User");
+            if (string.IsNullOrEmpty(userSession))
+            {
+                TempData["Message"] = "Please Authenticate in first";
+                return RedirectToAction("Authenticate", "User");
+            }
             User u = JsonConvert.DeserializeObject<User>(userSession);
 
             List<Vehicle> vehicles = Vehicle.GetVehiclesByUser(_vehicle, u);
@@ -55,6 +71,7 @@ namespace ThomasNicoCarpool.Controllers
             Request r = Models.Request.GetRequestById(id, _request);
             HttpContext.Session.SetString("User", JsonConvert.SerializeObject(u, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
             AddAnOffersViewModel cvm = new AddAnOffersViewModel(r.Departure, r.Arrival, r.Date, u);
+            r.RemoveRequestById(id, _request);
             return View(cvm);
         }
         [HttpPost]
@@ -64,11 +81,6 @@ namespace ThomasNicoCarpool.Controllers
             string? userSession = HttpContext.Session.GetString("User");
             User u = JsonConvert.DeserializeObject<User>(userSession);
 
-            if (u == null)
-            {
-                TempData["Message"] = "Please Authenticate in first";
-                return RedirectToAction("Authenticate", "User");
-            }
             ModelState.Remove("Driver");
             if (ModelState.IsValid)
             {
@@ -76,12 +88,32 @@ namespace ThomasNicoCarpool.Controllers
                 carpool.Driver = u;
                 carpool.Vehicle_ = u.GetVehicle(cvm.IdVehicle);
                 carpool.Price = carpool.GetPrice();
-                carpool.SaveCarpool(_carpool);
+                if (carpool.SaveCarpool(_carpool))
+                {
+                    TempData["Message"] = "Carpool created successfully!";
+                }
+                else
+                {
+                    TempData["Message"] = "Error during the creation of an offer!";
+                }
 
-                TempData["Message"] = "Carpool created successfully!";
+                
                 return RedirectToAction("SeeAllOffers", "Carpool");
             }
+            cvm.Driver = u;
             return View(cvm);
+        }
+        public IActionResult ConsultMyOffers()
+        {
+            string? userSession = HttpContext.Session.GetString("User");
+            if (string.IsNullOrEmpty(userSession))
+            {
+                TempData["Message"] = "Please Authenticate in first";
+                return RedirectToAction("Authenticate", "User");
+            }
+            User u = JsonConvert.DeserializeObject<User>(userSession);
+
+            return View(Carpool.GetOffersByDriver(_carpool, u));
         }
     }
 }

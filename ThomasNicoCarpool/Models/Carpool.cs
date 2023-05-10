@@ -102,6 +102,17 @@ namespace ThomasNicoCarpool.Models
 			this.Date = date;
 			this.driver = driver;
         }
+		public Carpool(int id, string departure, string arrival, DateTime date, int nbrKm, bool smoke, bool pause, double price) : base(id,departure, arrival,date)
+		{
+			this.Id = id;
+			this.Departure = departure;
+			this.Arrival = arrival;
+			this.Date = date;
+			this.nbrKm = nbrKm;
+			this.smoke = smoke;
+			this.pause = pause;
+			this.price = price;
+		}
         public Carpool(AddAnOffersViewModel cvm)
         {
             this.Departure = cvm.Departure;
@@ -118,9 +129,10 @@ namespace ThomasNicoCarpool.Models
 			List<Carpool> carpools = carpool.GetOffers();
 			return carpools;
 		}
-		public static List<Carpool> GetOffersByDriver()
+		public static List<Carpool> GetOffersByDriver(ICarpoolDAL carpool, User u)
 		{
-			return null;
+			List<Carpool> carpools = carpool.GetOffersByDriver(u);
+			return carpools;
 		}
 		public bool SaveCarpool(ICarpoolDAL carpool)
 		{

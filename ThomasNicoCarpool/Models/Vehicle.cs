@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using ThomasNicoCarpool.DAL;
 using ThomasNicoCarpool.DAL.IDAL;
+using ThomasNicoCarpool.ViewModels;
 
 namespace ThomasNicoCarpool.Models
 {
@@ -82,6 +83,35 @@ namespace ThomasNicoCarpool.Models
             this.priceMultiplier = priceMultiplier;
             this.owner = owner;
 			this.carpools = new List<Carpool>();
+        }
+        public Vehicle(AddVehicleViewModel vehicle)
+        {
+            this.type = vehicle.Type;
+            this.nbrPlace = vehicle.NbrPlace;
+            this.storagePlace = vehicle.StoragePlace;
+            this.carpools = new List<Carpool>();
+
+            switch (vehicle.Type)
+            {
+                case TypeVehicle.CityCar:
+                    this.priceMultiplier = 1.1;
+                    break;
+                case TypeVehicle.Compact:
+                     this.priceMultiplier = 1.2;
+                    break;
+                case TypeVehicle.Family:
+                    this.priceMultiplier = 1.3;
+                    break;
+                case TypeVehicle.Road:
+                    this.priceMultiplier = 1.4;
+                    break;
+                case TypeVehicle.Luxury:
+                    this.priceMultiplier = 1.5;
+                    break;
+                default:
+                    this.priceMultiplier = 1.0;
+                    break;
+            }
         }
         public static List<Vehicle> GetVehiclesByUser(IVehicleDAL vehicleDAL, User owner)
         {

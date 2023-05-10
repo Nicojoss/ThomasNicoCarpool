@@ -42,7 +42,7 @@ namespace ThomasNicoCarpool.ViewModels
             get { return date; }
             set { date = value; }
         }
-        [Required(ErrorMessage = "Number of Km Invalid!"), Range(0, 5000, ErrorMessage = "Enter a positive number between 0 and 5000 km.")]
+        [Required(ErrorMessage = "Number of Km Invalid!"), Range(1, 5000, ErrorMessage = "Enter a positive number between 1 and 5000 km.")]
         public int NbrKm
         {
             get { return nbrKm; }

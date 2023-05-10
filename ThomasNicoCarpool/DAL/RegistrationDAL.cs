@@ -50,6 +50,7 @@ namespace ThomasNicoCarpool.DAL
                             reader.GetInt32("NbrLuggage"),
                             user,
                             carpool);
+                        
                         registration.Add(r);
                     }
                 }

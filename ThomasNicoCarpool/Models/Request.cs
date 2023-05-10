@@ -39,5 +39,9 @@ namespace ThomasNicoCarpool.Models
         {
             return requestDAL.GetRequestById(id);
         }
+        public bool RemoveRequestById(int id, IRequestDAL requestDAL)
+        {
+            return requestDAL.RemoveRequestById(id);
+        }
     }
 }
