@@ -117,9 +117,9 @@ namespace ThomasNicoCarpool.Models
         {
             return vehicleDAL.GetVehiclesByUser(owner);
         }
-        public void SaveVehicle(IVehicleDAL vehicleDAL)
+        public bool SaveVehicle(IVehicleDAL vehicleDAL)
 		{
-            vehicleDAL.SaveVehicle(this);
+            return vehicleDAL.SaveVehicle(this);
 		}
 
         public override string? ToString()

@@ -141,9 +141,9 @@ namespace ThomasNicoCarpool.Models
         {
             return userDAL.Authenticate(nickName, password);
         }
-        public void SaveAccount(IUserDAL userDAL)
+        public bool SaveAccount(IUserDAL userDAL)
         {
-            userDAL.SaveAccount(this);
+            return userDAL.SaveAccount(this);
         }
         public List<Carpool> GetOffers()
         {

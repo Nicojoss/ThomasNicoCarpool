@@ -45,7 +45,6 @@ namespace ThomasNicoCarpool.Controllers
                 else
                     TempData["Message"] = "Error during the creation of the request !";
 
-                //r.SaveRequest(_requestDAL);
                 return Redirect("/Request/SeeAllRequests");
             }
             return View();

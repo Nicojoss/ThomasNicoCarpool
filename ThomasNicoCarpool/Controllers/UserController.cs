@@ -29,8 +29,10 @@ namespace ThomasNicoCarpool.Controllers
             {
                 User user = new User(u);
 
-                user.SaveAccount(_user);
-                TempData["Message"] = "Account created successfully!";
+                if (user.SaveAccount(_user))
+                    TempData["Message"] = "Account created successfully!";
+                else
+                    TempData["Message"] = "Error during the creation of your account!";
                 return RedirectToAction("Index", "Home");
             }
             return View(u);
@@ -77,9 +79,11 @@ namespace ThomasNicoCarpool.Controllers
             {
                 Vehicle vehicle = new Vehicle(vehicleVm);
                 vehicle.Owner = u;
-                vehicle.SaveVehicle(_vehicle);
+                if(vehicle.SaveVehicle(_vehicle))
+                    TempData["Message"] = "Vehicle added successfully!";
+                else
+                    TempData["Message"] = "Error during the creation of the vehicle!";
 
-                TempData["Message"] = "Vehicle added successfully!";
                 return RedirectToAction("SeeAllOffers", "Carpool");
             }
             return View(vehicleVm); 
