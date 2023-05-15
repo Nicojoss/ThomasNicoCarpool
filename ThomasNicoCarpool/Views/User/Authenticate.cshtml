@@ -4,9 +4,10 @@
     <div class="alert alert-success">@TempData["Message"]</div>
 }
 @{
-    <h1 style="text-align:center">Authentication page</h1>
+<h1 style="text-align:center">Authentication page</h1>
 <br />
-
+<a class="btn" style="border: 2px solid grey" asp-controller="Home" asp-action="Index">Return</a>
+<br />
 <div>
     <form asp-controller="User" asp-action="Authenticate" method="post">
         <label asp-for="Nickname">Nickname :</label>
