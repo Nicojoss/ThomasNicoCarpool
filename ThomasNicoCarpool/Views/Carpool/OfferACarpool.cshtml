@@ -8,7 +8,7 @@
             <td><select asp-for="IdVehicle" class="form-control">
                     @foreach (Vehicle vehicle in Model.Driver.Vehicles)
                     {
-                        <option value="@vehicle.Id">@vehicle.ToString()</option>
+                        <option value="@vehicle.Id">@vehicle.Print()</option>
                     }
                 </select>
             </td>

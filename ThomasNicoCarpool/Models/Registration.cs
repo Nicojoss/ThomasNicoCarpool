@@ -64,5 +64,20 @@ namespace ThomasNicoCarpool.Models
 		{
 			return registrationDAL.SaveRegistration(this);
 		}
+
+        public override bool Equals(object? obj)
+        {
+            return this.ToString() == obj.ToString();
+        }
+
+        public override int GetHashCode()
+        {
+            return this.ToString().GetHashCode(); ;
+        }
+
+        public override string? ToString()
+        {
+            return $"{id}";
+        }
     }
 }

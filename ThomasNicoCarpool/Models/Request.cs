@@ -12,7 +12,7 @@ namespace ThomasNicoCarpool.Models
             get { return passenger; }
             set { passenger = value; }
         }
-
+        public Request(){}
         public Request(User user, int id, string departure, string arrival, DateTime date) : base(id, departure, arrival, date)
         {
             this.passenger = user;

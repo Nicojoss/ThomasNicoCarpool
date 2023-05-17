@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks.Dataflow;
 using ThomasNicoCarpool.DAL.IDAL;
 using ThomasNicoCarpool.ViewModels;
 
@@ -132,6 +134,7 @@ namespace ThomasNicoCarpool.Models
 		public static List<Carpool> GetOffersByDriver(ICarpoolDAL carpool, User u)
 		{
 			List<Carpool> carpools = carpool.GetOffersByDriver(u);
+
 			return carpools;
 		}
 		public bool SaveCarpool(ICarpoolDAL carpool)
@@ -142,7 +145,14 @@ namespace ThomasNicoCarpool.Models
 			if(!registrations.Contains(registration))
 				registrations.Add(registration);
 		}
-		public void AddReview(Review review) => this.reviews.Add(review);
+		public void AddReview(Review review)
+		{
+			if(reviews == null)
+			{
+				reviews = new List<Review>();
+			}
+			this.reviews.Add(review);
+		}
 		public int CalculateNbrPlaceRemaining() {
 			int total = vehicle.NbrPlace;
 			foreach(var registration in this.registrations)
@@ -173,5 +183,20 @@ namespace ThomasNicoCarpool.Models
 			return (price * vehicle.PriceMultiplier) / totalPassenger;
 		}
 		public double GetPrice() { return this.nbrKm*0.5; }
+
+        public override bool Equals(object? obj)
+        {
+			return obj.ToString() == this.ToString();
+        }
+
+        public override int GetHashCode()
+        {
+            return this.ToString().GetHashCode();
+        }
+
+        public override string? ToString()
+        {
+            return $"{Id}, {Departure}, {Arrival}";
+        }
     }
 }

@@ -42,6 +42,10 @@ namespace ThomasNicoCarpool.Controllers
             User u = JsonConvert.DeserializeObject<User>(userSession);
 
             List<Vehicle> vehicles = Vehicle.GetVehiclesByUser(_vehicle, u);
+            if(vehicles.Count == 0)
+            {
+                return RedirectToAction("AddVehicle", "User");
+            }
 
             foreach (Vehicle vehicle in vehicles)
             {
@@ -63,6 +67,10 @@ namespace ThomasNicoCarpool.Controllers
             User u = JsonConvert.DeserializeObject<User>(userSession);
 
             List<Vehicle> vehicles = Vehicle.GetVehiclesByUser(_vehicle, u);
+            if (vehicles.Count == 0)
+            {
+                return RedirectToAction("AddVehicle", "User");
+            }
 
             foreach (Vehicle vehicle in vehicles)
             {
@@ -71,7 +79,7 @@ namespace ThomasNicoCarpool.Controllers
             Request r = Models.Request.GetRequestById(id, _request);
             HttpContext.Session.SetString("User", JsonConvert.SerializeObject(u, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
             AddAnOffersViewModel cvm = new AddAnOffersViewModel(r.Departure, r.Arrival, r.Date, u);
-            r.RemoveRequestById(id, _request);
+            HttpContext.Session.SetString("Request", JsonConvert.SerializeObject(r));
             return View(cvm);
         }
         [HttpPost]
@@ -82,7 +90,7 @@ namespace ThomasNicoCarpool.Controllers
             User u = JsonConvert.DeserializeObject<User>(userSession);
 
             ModelState.Remove("Driver");
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && cvm.IdVehicle != null)
             {
                 Carpool carpool = new Carpool(cvm);
                 carpool.Driver = u;
@@ -90,6 +98,13 @@ namespace ThomasNicoCarpool.Controllers
                 carpool.Price = carpool.GetPrice();
                 if (carpool.SaveCarpool(_carpool))
                 {
+                    string? RequestSession = HttpContext.Session.GetString("Request");
+                    if (!string.IsNullOrEmpty(RequestSession))
+                    {
+                        Request r = JsonConvert.DeserializeObject<Request>(HttpContext.Session.GetString("Request"));
+                        r.RemoveRequestById(r.Id, _request);
+                        HttpContext.Session.Remove("Request");
+                    }
                     TempData["Message"] = "Carpool created successfully!";
                 }
                 else
@@ -112,8 +127,15 @@ namespace ThomasNicoCarpool.Controllers
                 return RedirectToAction("Authenticate", "User");
             }
             User u = JsonConvert.DeserializeObject<User>(userSession);
+            
+            List<Carpool> carpools = Carpool.GetOffersByDriver(_carpool, u);
+            foreach (Carpool c in carpools)
+            {
+                u.AddCarpool(c);
+            }
+            HttpContext.Session.SetString("User", JsonConvert.SerializeObject(u, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
 
-            return View(Carpool.GetOffersByDriver(_carpool, u));
+            return View(u.Carpools);
         }
     }
 }

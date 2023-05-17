@@ -122,9 +122,23 @@ namespace ThomasNicoCarpool.Models
             return vehicleDAL.SaveVehicle(this);
 		}
 
-        public override string? ToString()
+        public string? Print()
         {
             return $"Type vehicule {Type} nbrPlace available {nbrPlace} storagePlace available {storagePlace}";
+        }
+        public override bool Equals(object? obj)
+        {
+            return this.ToString() == obj.ToString();
+        }
+
+        public override int GetHashCode()
+        {
+            return this.ToString().GetHashCode();
+        }
+
+        public override string? ToString()
+        {
+            return $"{id}";
         }
     }
 }

@@ -54,6 +54,7 @@ namespace ThomasNicoCarpool.Models
             this.comment = comment;
             this.passenger = user;
             this.carpool = carpool;
+            this.carpool.AddReview(this);
         }
         public Review(int id, int rating, string comment)
         {

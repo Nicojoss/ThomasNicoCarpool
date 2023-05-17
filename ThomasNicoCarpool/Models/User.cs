@@ -145,11 +145,13 @@ namespace ThomasNicoCarpool.Models
         {
             return userDAL.SaveAccount(this);
         }
-        public List<Carpool> GetOffers()
+        public void AddCarpool(Carpool carpool)
         {
-            return null;
+            if (!carpools.Contains(carpool))
+            {
+                this.carpools.Add(carpool);
+            }    
         }
-        public void AddCarpool(Carpool carpool) => this.carpools.Add(carpool);
         public void AddRegistration(Registration registration)
         {
             if (!registrations.Contains(registration))

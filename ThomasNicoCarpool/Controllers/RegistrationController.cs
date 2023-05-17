@@ -23,13 +23,14 @@ namespace ThomasNicoCarpool.Controllers
             }
             User u = JsonConvert.DeserializeObject<User>(userSession);
             List<Registration> registrations = Registration.GetRegistrationByUser(u, _registration);
+            u.Registrations.Clear();
             foreach (var registration in registrations)
             {
                 u.AddRegistration(registration);
             }
             HttpContext.Session.SetString("User", JsonConvert.SerializeObject(u, new JsonSerializerSettings {ReferenceLoopHandling = ReferenceLoopHandling.Ignore}));
             
-            return View(registrations);
+            return View(u.Registrations);
         }
         public IActionResult RegisterForACarpool(string JsonCarpool)
         {

@@ -10,7 +10,7 @@
         <th>Driver's number'</th>
         <th>Place taken</th>
         <th>Number of luggage</th>
-        <th>Price/Person</th>
+        <th>Price per person</th>
 
     </tr>
     @foreach (Registration r in Model)
@@ -22,7 +22,7 @@
                 <td>@r.Carpool_.Driver.Telephone</td>
                 <td>@r.NbrPlaceTaken</td>
                 <td>@r.NbrLuggage</td>
-                <td>@r.Carpool_.CalculatePrice()</td>
+                <td>@r.Carpool_.CalculatePrice().ToString("0.00")</td>
                 <td><a asp-controller="Review" asp-action="GiveAReview" asp-route-id="@r.Id">Give a review</a></td>
             </tr>
     }
