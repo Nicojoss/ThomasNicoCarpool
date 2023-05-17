@@ -32,7 +32,7 @@ namespace ThomasNicoCarpool.Controllers
                 if (user.SaveAccount(_user))
                     TempData["Message"] = "Account created successfully!";
                 else
-                    TempData["Message"] = "Error during the creation of your account!";
+                    TempData["Message"] = "Error during the creation of your account! (Email or Nickname maybe already used)";
                 return RedirectToAction("Index", "Home");
             }
             return View(u);

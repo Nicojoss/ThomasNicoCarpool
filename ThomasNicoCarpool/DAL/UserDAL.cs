@@ -42,20 +42,39 @@ namespace ThomasNicoCarpool.DAL
         public bool SaveAccount(User u)
         {
             bool success = false;
+            bool find = false;
             string query = "INSERT INTO [User](LastName, Firstname, Nickname, Password, Email, Telephone)" +
-                " VALUES (@LastName, @Firstname, @Nickname, @Password, @Email, @Telephone)";
+                " VALUES (@LastName, @Firstname, @Nickname, @Password, @Email, @Telephone) ";
 
+            string query2 = "SELECT * FROM [User] WHERE Nickname = @Nickname OR Email = @Email";
             using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
-                SqlCommand cmd = new SqlCommand(query, connection);
-                cmd.Parameters.AddWithValue("Lastname", u.Lastname);
-                cmd.Parameters.AddWithValue("Firstname", u.Firstname);
+                SqlCommand cmd = new SqlCommand(query2, connection);
                 cmd.Parameters.AddWithValue("Nickname", u.Nickname);
-                cmd.Parameters.AddWithValue("Password", u.Password);
                 cmd.Parameters.AddWithValue("Email", u.Email);
-                cmd.Parameters.AddWithValue("Telephone", u.Telephone);
                 connection.Open();
+
                 success = cmd.ExecuteNonQuery() > 0;
+                find = true;
+            }
+            if (find == false)
+            {
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
+                {
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("Lastname", u.Lastname);
+                    cmd.Parameters.AddWithValue("Firstname", u.Firstname);
+                    cmd.Parameters.AddWithValue("Nickname", u.Nickname);
+                    cmd.Parameters.AddWithValue("Password", u.Password);
+                    cmd.Parameters.AddWithValue("Email", u.Email);
+                    cmd.Parameters.AddWithValue("Telephone", u.Telephone);
+                    connection.Open();
+                    success = cmd.ExecuteNonQuery() > 0;
+                    return success;
+                }
+            }
+            else
+            {
                 return success;
             }
         }

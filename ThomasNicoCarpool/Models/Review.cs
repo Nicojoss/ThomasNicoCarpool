@@ -38,16 +38,6 @@ namespace ThomasNicoCarpool.Models
 			get { return carpool; }
 			set { carpool = value; }
 		}
-
-        public Review(int id, int rating, string comment, User user, Carpool carpool)
-        {
-            this.id = id;
-            this.rating = rating;
-            this.comment = comment;
-            this.passenger = user;
-            this.carpool = carpool;
-        }
-		// constructeur sans l'id
         public Review(int rating, string comment, User user, Carpool carpool)
         {
             this.rating = rating;

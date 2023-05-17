@@ -16,7 +16,6 @@ namespace ThomasNicoCarpool.Models
         private string password;
         private List<Registration> registrations;
         private List<Carpool> carpools;
-        private List<Review> reviews;
         private List<Vehicle> vehicles;
         public int Id
         {
@@ -69,50 +68,16 @@ namespace ThomasNicoCarpool.Models
             get { return carpools; }
             set { carpools = value; }
         }
-        public List<Review> Reviews
-        {
-            get { return reviews; }
-            set { reviews = value; }
-        }
         [Required(ErrorMessage = "Vehicles Invalid!")]
         public List<Vehicle> Vehicles
         {
             get { return vehicles; }
             set { vehicles = value; }
         }
-        // Constructeur tout
-        public User(int id, string firstname, string lastname, string nickname, string telephone, string email, string password, List<Registration> registrations, List<Carpool> carpools, List<Review> reviews, List<Vehicle> vehicles)
-        {
-            this.id = id;
-            this.firstname = firstname;
-            this.lastname = lastname;
-            this.nickname = nickname;
-            this.telephone = telephone;
-            this.email = email;
-            this.password = password;
-            this.registrations = registrations;
-            this.carpools = carpools;
-            this.reviews = reviews;
-            this.vehicles = vehicles;
-        }
+   
         public User()
         {
         }
-        // Constructeur mais sans l'id pour create account et initialiser les listes
-        public User(string firstname, string lastname, string nickname, string telephone, string email, string password)
-        {
-            this.firstname = firstname;
-            this.lastname = lastname;
-            this.nickname = nickname;
-            this.telephone = telephone;
-            this.email = email;
-            this.password = password;
-            carpools = new List<Carpool>();
-            registrations = new List<Registration>();
-            reviews = new List<Review>();
-            vehicles = new List<Vehicle>();
-        }
-
         public User(int id, string firstname, string lastname, string nickname, string telephone, string email, string password)
         {
             this.id = id;
@@ -124,7 +89,6 @@ namespace ThomasNicoCarpool.Models
             this.password = password;
             carpools = new List<Carpool>();
             registrations = new List<Registration>();
-            reviews = new List<Review>();
             vehicles = new List<Vehicle>();
         }
         // Ctor pour mon UserViewModel
@@ -157,7 +121,6 @@ namespace ThomasNicoCarpool.Models
             if (!registrations.Contains(registration))
                 this.registrations.Add(registration);
         }
-        public void AddReview(Review review) => this.reviews.Add(review);
         public void AddVehicle(Vehicle vehicle)
         {
             if (!vehicles.Contains(vehicle))

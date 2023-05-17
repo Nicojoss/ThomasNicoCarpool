@@ -70,40 +70,6 @@ namespace ThomasNicoCarpool.Models
             this.vehicle = vehicle;
 			this.registrations = new List<Registration>();
         }
-
-        public Carpool(int id, string departure, string arrival, DateTime date,int nbrKm, bool smoke, bool pause, double price, List<Registration> registrations, User driver, List<Review> reviews, Vehicle vehicle)
-			: base(id, departure, arrival, date)
-        {
-            this.nbrKm = nbrKm;
-            this.smoke = smoke;
-            this.pause = pause;
-            this.price = price;
-            this.registrations = registrations;
-            this.driver = driver;
-            this.reviews = reviews;
-            this.vehicle = vehicle;
-        }
-
-        public Carpool(string departure, string arrival, DateTime date, int nbrKm, bool smoke, bool pause, double price, User driver, Vehicle vehicle)
-			: base(departure, arrival, date)
-		{
-            this.nbrKm = nbrKm;
-            this.smoke = smoke;
-            this.pause = pause;
-            this.price = price;
-            this.driver = driver;
-            this.vehicle = vehicle;
-			this.registrations = new List<Registration>();
-			this.reviews = new List<Review>();
-        }
-		// Create the carpool with the request attribut in CarpoolController action OfferACarpool(Request) 
-        public Carpool(string departure, string arrival, DateTime date, User driver) : base(departure, arrival, date)
-        {
-			this.Departure = departure;
-			this.Arrival = arrival;
-			this.Date = date;
-			this.driver = driver;
-        }
 		public Carpool(int id, string departure, string arrival, DateTime date, int nbrKm, bool smoke, bool pause, double price) : base(id,departure, arrival,date)
 		{
 			this.Id = id;

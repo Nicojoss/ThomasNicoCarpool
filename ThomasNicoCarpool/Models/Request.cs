@@ -13,10 +13,6 @@ namespace ThomasNicoCarpool.Models
             set { passenger = value; }
         }
         public Request(){}
-        public Request(User user, int id, string departure, string arrival, DateTime date) : base(id, departure, arrival, date)
-        {
-            this.passenger = user;
-        }
         public Request(User user, string departure, string arrival, DateTime date) : base(departure, arrival, date)
         {
             this.passenger = user;
@@ -25,8 +21,6 @@ namespace ThomasNicoCarpool.Models
         {
             
         }
-        public Request(string departure, string arrival, DateTime date) : base(departure, arrival, date) { }
-        // Ne pas oublier changer le return avec une liste
         public static List<Request> GetRequests(IRequestDAL requestDAL)
         {
             return requestDAL.GetRequests();

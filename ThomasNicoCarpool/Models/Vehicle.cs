@@ -12,7 +12,6 @@ namespace ThomasNicoCarpool.Models
         private int nbrPlace;
         private int storagePlace;
         private double priceMultiplier;
-        private List<Carpool> carpools;
         private User owner;
         public int Id
 		{
@@ -42,11 +41,6 @@ namespace ThomasNicoCarpool.Models
 			get { return priceMultiplier; }
 			set { priceMultiplier = value; }
 		}
-		public List<Carpool> Carpools
-		{
-			get { return carpools; }
-			set { carpools = value; }
-		}
 		public User Owner
 		{
 			get { return owner; }
@@ -61,35 +55,15 @@ namespace ThomasNicoCarpool.Models
             this.storagePlace = storagePlace;
             this.priceMultiplier = priceMultiplier;
             this.owner = owner;
-			carpools = new List<Carpool>();
+			
         }
         public Vehicle() { }
-        public Vehicle(int id, TypeVehicle type, int nbrPlace, int storagePlace, double priceMultiplier, List<Carpool> carpools, User owner)
-        {
-            this.id = id;
-            this.type = type;
-            this.nbrPlace = nbrPlace;
-            this.storagePlace = storagePlace;
-            this.priceMultiplier = priceMultiplier;
-            this.carpools = carpools;
-            this.owner = owner;
-        }
-
-        public Vehicle(TypeVehicle type, int nbrPlace, int storagePlace, double priceMultiplier, User owner)
-        {
-            this.type = type;
-            this.nbrPlace = nbrPlace;
-            this.storagePlace = storagePlace;
-            this.priceMultiplier = priceMultiplier;
-            this.owner = owner;
-			this.carpools = new List<Carpool>();
-        }
+      
         public Vehicle(AddVehicleViewModel vehicle)
         {
             this.type = vehicle.Type;
             this.nbrPlace = vehicle.NbrPlace;
             this.storagePlace = vehicle.StoragePlace;
-            this.carpools = new List<Carpool>();
 
             switch (vehicle.Type)
             {
